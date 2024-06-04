@@ -1,0 +1,18 @@
+version: "3.8"
+
+volumes:
+  db_data:
+
+services:
+  postgres-db:
+    image: postgres:latest
+    container_name: postgres_container
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: admin123
+    volumes:
+      - ./init-db:/docker-entrypoint-initdb.d
+    ports:
+      - "5444:5432"
+

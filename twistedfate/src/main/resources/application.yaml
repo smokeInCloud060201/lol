@@ -1,0 +1,11 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: Twisted Fate Eureka Server
+
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false

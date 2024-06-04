@@ -1,0 +1,19 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: Thresh-Application S3 storage
+
+
+
+
+
+
+
+
+
+
+
+
+
