@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: Yorick Application - User service
+    name: Nautilus - Authorize Server
   datasource:
     url: jdbc:postgresql://localhost:5444/yorick
     username: root
@@ -15,10 +15,21 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8084/eureka/
 
+logging:
+  level:
+    root: INFO
+    vn.com.lol: DEBUG
+    org.springframework.jdbc: DEBUG
+    org.springframework.security: TRACE
 
+security:
+  jwt:
+    secret-key: "89f0d1b8d71f4b5ea4c6e7a53b7fecd8c4e78a9d51f8abef36d5e5b5d59c8f2b"
+    expiration: 3600000
+    refresh-token:
+      expiration: 86400000
