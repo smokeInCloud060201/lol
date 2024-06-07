@@ -8,18 +8,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
+import vn.com.lol.constants.GlobalHibernateConstant;
 import vn.com.lol.enums.FileExtension;
 
-import static vn.com.lol.constants.HibernateConstant.Entity.FILE;
-import static vn.com.lol.constants.HibernateConstant.IS_NOT_DELETED;
-import static vn.com.lol.constants.HibernateConstant.Table.FILE_TABLE;
-import static vn.com.lol.constants.HibernateConstant.Table.SOFT_DELETE_FILE;
+import static vn.com.lol.constants.GlobalHibernateConstant.IS_NOT_DELETED;
+import static vn.com.lol.constants.GlobalHibernateConstant.Table.SOFT_DELETE_FILE;
+
 
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity(name = FILE)
-@Table(name = FILE_TABLE)
+@Entity(name = GlobalHibernateConstant.Entity.FILE)
+@Table(name = GlobalHibernateConstant.Table.FILE)
 @SQLRestriction(IS_NOT_DELETED)
 @SQLDelete(sql = SOFT_DELETE_FILE)
 public class File extends BaseEntity {

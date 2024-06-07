@@ -9,12 +9,17 @@ spring:
     username: root
     password: admin123
   jpa:
-    hibernate:
-      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+  flyway:
+    url: jdbc:postgresql://localhost:5444/yorick
+    user: root
+    password: admin123
+    baseline-on-migrate: true
+
+
 eureka:
   client:
     serviceUrl:
@@ -33,3 +38,6 @@ security:
     expiration: 3600000
     refresh-token:
       expiration: 86400000
+
+
+

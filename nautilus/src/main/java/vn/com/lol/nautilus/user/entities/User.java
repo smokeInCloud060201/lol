@@ -1,5 +1,6 @@
 package vn.com.lol.nautilus.user.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
@@ -7,30 +8,41 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import vn.com.lol.entities.BaseEntity;
+import vn.com.lol.nautilus.commons.constant.HibernateConstant;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static vn.com.lol.nautilus.commons.constants.SecurityConstant.GrantAuthority.ROLE;
-import static vn.com.lol.nautilus.commons.constants.SecurityConstant.GrantAuthority.SCOPE;
+import static vn.com.lol.constants.GlobalHibernateConstant.IS_NOT_DELETED;
+import static vn.com.lol.nautilus.commons.constant.HibernateConstant.Table.SOFT_DELETE_USER;
+import static vn.com.lol.nautilus.commons.constant.SecurityConstant.GrantAuthority.ROLE;
+import static vn.com.lol.nautilus.commons.constant.SecurityConstant.GrantAuthority.SCOPE;
 
 
-@Entity(name = "User")
-@Table(name = "users")
+
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity(name = HibernateConstant.Entity.USER)
+@Table(name = HibernateConstant.Table.USER)
+@SQLRestriction(IS_NOT_DELETED)
+@SQLDelete(sql = SOFT_DELETE_USER)
 public class User extends BaseEntity implements UserDetails, Serializable {
 
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "password")
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "userRoles", fetch = FetchType.EAGER)
     private List<Role> roleUsers;
 
 
