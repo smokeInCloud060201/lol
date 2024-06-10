@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
-import vn.com.lol.commons.dto.response.BaseResponse;
+import vn.com.lol.dto.response.BaseResponse;
 import vn.com.lol.enums.ExceptionErrorCode;
 import vn.com.lol.exceptions.BadRequestException;
 import vn.com.lol.exceptions.ResourceNotFoundException;

@@ -1,5 +1,6 @@
 package vn.com.lol.yorick.user.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
@@ -30,5 +31,6 @@ public class Permission extends BaseEntity {
     private String name;
 
     @ManyToMany(mappedBy = "permissionRoles")
+    @JsonBackReference
     private List<Role> rolePermissions;
 }

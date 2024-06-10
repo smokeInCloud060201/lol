@@ -1,20 +1,27 @@
 server:
-  port: 8085
+  port: 8086
 
 spring:
   application:
     name: Nautilus - Authorize Server
   datasource:
-    url: jdbc:postgresql://localhost:5444/yorick
-    username: root
-    password: admin123
+    primary:
+      jdbcUrl: jdbc:postgresql://localhost:5444/nautilus
+      username: root
+      password: admin123
+      driver-class-name: org.postgresql.Driver
+    secondary:
+      jdbcUrl: jdbc:postgresql://localhost:5444/yorick
+      username: root
+      password: admin123
+      driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
     properties:
       hibernate:
         format_sql: true
   flyway:
-    url: jdbc:postgresql://localhost:5444/yorick
+    url: jdbc:postgresql://localhost:5444/nautilus
     user: root
     password: admin123
     baseline-on-migrate: true

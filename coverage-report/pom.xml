@@ -22,6 +22,8 @@
         <lulu.version>0.0.1-SNAPSHOT</lulu.version>
         <common.version>0.0.1-SNAPSHOT</common.version>
         <yasuo.version>0.0.1-SNAPSHOT</yasuo.version>
+        <yorik.version>0.0.1-SNAPSHOT</yorik.version>
+        <nautilus.version>0.0.1-SNAPSHOT</nautilus.version>
         <jacoco.version>0.8.11</jacoco.version>
     </properties>
 
@@ -45,6 +47,16 @@
             <groupId>vn.com.lol</groupId>
             <artifactId>yasuo</artifactId>
             <version>${yasuo.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>vn.com.lol</groupId>
+            <artifactId>nautilus</artifactId>
+            <version>${nautilus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>vn.com.lol</groupId>
+            <artifactId>yorick</artifactId>
+            <version>${yorik.version}</version>
         </dependency>
     </dependencies>
 

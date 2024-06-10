@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
-import vn.com.lol.category.entities.Category;
 import vn.com.lol.entities.BaseEntity;
+import vn.com.lol.yasuo.category.entities.Category;
 import vn.com.lol.yasuo.commons.constant.GlobalHibernateConstant;
 
 import java.util.List;

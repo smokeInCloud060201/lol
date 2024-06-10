@@ -1,5 +1,7 @@
 package vn.com.lol.yorick.user.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -37,6 +39,7 @@ public class Role extends BaseEntity {
             name = "role_permission",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id"))
+    @JsonManagedReference
     private List<Permission> permissionRoles;
 
     @ManyToMany
@@ -44,5 +47,6 @@ public class Role extends BaseEntity {
             name = "role_users",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JsonBackReference
     private List<User> userRoles;
 }
