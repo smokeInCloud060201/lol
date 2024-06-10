@@ -1,4 +1,4 @@
-package vn.com.lol.yorick.user.entities;
+package vn.com.lol.yorick.modules.user.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;

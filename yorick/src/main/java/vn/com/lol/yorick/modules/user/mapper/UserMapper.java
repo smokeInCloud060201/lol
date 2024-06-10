@@ -1,8 +1,8 @@
-package vn.com.lol.yorick.user.mapper;
+package vn.com.lol.yorick.modules.user.mapper;
 
 import org.springframework.stereotype.Component;
-import vn.com.lol.yorick.user.dtos.response.UserResponseDTO;
-import vn.com.lol.yorick.user.entities.User;
+import vn.com.lol.yorick.modules.user.entities.User;
+import vn.com.lol.yorick.modules.user.dtos.response.UserResponseDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +19,9 @@ public class UserMapper {
         }
         return UserResponseDTO.builder()
                 .userName(user.getEmail())
-                .isEmailVerified(user.isVerifiedEmail())
+                .emailVerify(user.isVerifiedEmail())
                 .mobileNo(user.getMobileNo())
-                .isMobileNoVerified(user.isVerifiedMobileNo())
+                .mobileVerify(user.isVerifiedMobileNo())
                 .scopes(buildScopes(user))
                 .build();
     }

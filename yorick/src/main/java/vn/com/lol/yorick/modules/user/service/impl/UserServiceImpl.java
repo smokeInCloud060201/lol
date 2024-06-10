@@ -1,13 +1,13 @@
-package vn.com.lol.yorick.user.service.impl;
+package vn.com.lol.yorick.modules.user.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import vn.com.lol.yorick.user.dtos.response.UserResponseDTO;
-import vn.com.lol.yorick.user.entities.User;
-import vn.com.lol.yorick.user.mapper.UserMapper;
-import vn.com.lol.yorick.user.repositories.UserRepository;
-import vn.com.lol.yorick.user.service.UserService;
+import vn.com.lol.yorick.modules.user.entities.User;
+import vn.com.lol.yorick.modules.user.mapper.UserMapper;
+import vn.com.lol.yorick.modules.user.repositories.UserRepository;
+import vn.com.lol.yorick.modules.user.dtos.response.UserResponseDTO;
+import vn.com.lol.yorick.modules.user.service.UserService;
 
 @Service
 @RequiredArgsConstructor

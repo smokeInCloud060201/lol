@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: Nautilus - Authorize Server
+    name: Nautilus - Authorize Service
   datasource:
     primary:
       jdbcUrl: jdbc:postgresql://localhost:5444/nautilus
@@ -16,6 +16,8 @@ spring:
       password: admin123
       driver-class-name: org.postgresql.Driver
   jpa:
+    hibernate:
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:

@@ -1,9 +1,9 @@
-package vn.com.lol.yorick.user.repositories;
+package vn.com.lol.yorick.modules.user.repositories;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import vn.com.lol.repository.BaseRepository;
-import vn.com.lol.yorick.user.entities.User;
+import vn.com.lol.yorick.modules.user.entities.User;
 
 import java.util.Optional;
 
