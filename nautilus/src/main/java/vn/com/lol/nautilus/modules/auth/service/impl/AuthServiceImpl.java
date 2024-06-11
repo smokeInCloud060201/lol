@@ -1,5 +1,6 @@
 package vn.com.lol.nautilus.modules.auth.service.impl;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,7 +31,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final TokenRepository tokenRepository;
 
-    public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) throws ResourceExistsException {
+    public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest, HttpServletRequest request) throws ResourceExistsException {
 
         User user = userRepository.findByUserName(authenticationRequest.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("Not found user"));
@@ -39,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
                 authenticationRequest.getEmail(), authenticationRequest.getPassword()
         ));
 
-        String token = jwtService.generateToken(user);
+        String token = jwtService.generateToken(user, request);
         String refreshToken = jwtService.generateRefreshToken(user);
 
         saveToken(token, refreshToken);

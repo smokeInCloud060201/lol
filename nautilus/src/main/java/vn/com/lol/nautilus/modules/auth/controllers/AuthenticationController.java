@@ -1,5 +1,6 @@
 package vn.com.lol.nautilus.modules.auth.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,9 +24,9 @@ public class AuthenticationController extends BaseController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public BaseResponse<AuthenticationResponse> authentication(@RequestBody AuthenticationRequest authenticationRequest) throws ResourceExistsException {
+    public BaseResponse<AuthenticationResponse> authentication(@RequestBody AuthenticationRequest authenticationRequest, HttpServletRequest request) throws ResourceExistsException {
         return BaseResponse.<AuthenticationResponse>builder()
-                .data(authService.authenticate(authenticationRequest))
+                .data(authService.authenticate(authenticationRequest, request))
                 .build();
     }
 }

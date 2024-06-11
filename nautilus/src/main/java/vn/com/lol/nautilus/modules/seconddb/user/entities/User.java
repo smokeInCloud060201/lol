@@ -42,6 +42,24 @@ public class User extends BaseEntity implements UserDetails, Serializable {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "is_verified_email")
+    private boolean isVerifiedEmail;
+
+    @Column(name = "is_verified_mobile_no")
+    private boolean isVerifiedMobileNo;
+
+    @Column(name = "is_account_non_expired")
+    private boolean isAccountNonExpired;
+
+    @Column(name = "is_account_non_locked")
+    private boolean isAccountNonLocked;
+
+    @Column(name = "is_credential_non_expired")
+    private boolean isCredentialsNonExpired;
+
+    @Column(name = "is_enabled")
+    private boolean isEnabled;
+
     @ManyToMany(mappedBy = "userRoles", fetch = FetchType.EAGER)
     private List<Role> roleUsers;
 
@@ -70,21 +88,21 @@ public class User extends BaseEntity implements UserDetails, Serializable {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return this.isAccountNonExpired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return this.isAccountNonLocked;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return this.isCredentialsNonExpired;
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.isEnabled;
     }
 }

@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: Lulu Application Message Driven
+    name: Lulu Application - Message Driven Service
   datasource:
     url: jdbc:postgresql://localhost:5444/lulu
     username: root

@@ -43,6 +43,18 @@ public class User extends BaseEntity {
     @Column(name = "is_verified_mobile_no")
     private boolean isVerifiedMobileNo;
 
+    @Column(name = "is_account_non_expired")
+    private boolean isAccountNonExpired;
+
+    @Column(name = "is_account_non_locked")
+    private boolean isAccountNonLocked;
+
+    @Column(name = "is_credential_non_expired")
+    private boolean isCredentialsNonExpired;
+
+    @Column(name = "is_enabled")
+    private boolean isEnabled;
+
     @ManyToMany(mappedBy = "userRoles", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Role> roleUsers;
