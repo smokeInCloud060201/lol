@@ -1,7 +1,7 @@
 package vn.com.lol.thresh.modules.storage.repository;
 
 import org.springframework.stereotype.Repository;
-import vn.com.lol.repository.BaseRepository;
+import vn.com.lol.common.repository.BaseRepository;
 import vn.com.lol.thresh.modules.storage.entities.FileMetadata;
 
 import java.util.Optional;

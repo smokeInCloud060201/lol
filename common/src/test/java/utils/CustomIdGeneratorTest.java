@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import vn.com.lol.utils.CustomIdGenerator;
+import vn.com.lol.common.utils.CustomIdGenerator;
 
 import static org.mockito.ArgumentMatchers.any;
 

@@ -9,9 +9,10 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import vn.com.lol.entities.BaseEntity;
+import vn.com.lol.common.entities.BaseEntity;
 import vn.com.lol.thresh.modules.blob.entities.Blob;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Table(name = "file_meta_data")
@@ -19,7 +20,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class FileMetadata extends BaseEntity {
+public class FileMetadata extends BaseEntity implements Serializable {
+
+    private static final long serialVersionUID = 3405172041950211807L;
 
     @Column(name = "file_name")
     private String filename;

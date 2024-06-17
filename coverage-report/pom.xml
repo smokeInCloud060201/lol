@@ -94,14 +94,14 @@
                     </execution>
                 </executions>
                 <configuration>
-<!--                    <excludes>-->
-<!--                        <exclude>vn/com/lol/*Application.class</exclude>-->
-<!--                        <exclude>**/dto/**/*.class</exclude>-->
-<!--                        <exclude>**/dtos/**/*.class</exclude>-->
-<!--                        <exclude>**/entities/*.class</exclude>-->
-<!--                        <exclude>**/constants/*.class</exclude>-->
-<!--                        <exclude>**/annotations/**/**/*.class</exclude>-->
-<!--                    </excludes>-->
+                    <excludes>
+                        <exclude>vn/com/lol/*Application.class</exclude>
+                        <exclude>**/dto/**/*.class</exclude>
+                        <exclude>**/dtos/**/*.class</exclude>
+                        <exclude>**/entities/*.class</exclude>
+                        <exclude>**/constants/*.class</exclude>
+                        <exclude>**/annotations/**/**/*.class</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
         </plugins>

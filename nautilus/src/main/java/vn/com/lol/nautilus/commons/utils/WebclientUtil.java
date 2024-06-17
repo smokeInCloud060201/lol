@@ -11,8 +11,8 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriBuilder;
 import reactor.core.publisher.Mono;
-import vn.com.lol.dto.request.QueryParam;
-import vn.com.lol.dto.request.URLComponent;
+import vn.com.lol.common.dto.request.QueryParam;
+import vn.com.lol.common.dto.request.URLComponent;
 
 import java.net.URI;
 import java.util.concurrent.CompletableFuture;

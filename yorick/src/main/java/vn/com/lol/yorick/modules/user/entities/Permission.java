@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
-import vn.com.lol.entities.BaseEntity;
+import vn.com.lol.common.entities.BaseEntity;
 import vn.com.lol.yorick.common.constant.HibernateConstant;
 
 import java.util.List;
 
-import static vn.com.lol.constants.GlobalHibernateConstant.IS_NOT_DELETED;
+import static vn.com.lol.common.constants.GlobalHibernateConstant.IS_NOT_DELETED;
 import static vn.com.lol.yorick.common.constant.HibernateConstant.Table.SOFT_DELETE_PERMISSION;
 
 

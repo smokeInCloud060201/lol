@@ -1,7 +1,7 @@
 package vn.com.lol.yasuo.tempt.repository;
 
 import org.springframework.stereotype.Repository;
-import vn.com.lol.repository.BaseRepository;
+import vn.com.lol.common.repository.BaseRepository;
 import vn.com.lol.yasuo.tempt.entities.Temp;
 
 

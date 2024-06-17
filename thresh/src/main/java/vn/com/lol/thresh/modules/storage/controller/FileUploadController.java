@@ -1,7 +1,6 @@
 package vn.com.lol.thresh.modules.storage.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -10,10 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import vn.com.lol.controller.BaseController;
+import vn.com.lol.common.controller.BaseController;
 import vn.com.lol.thresh.modules.storage.entities.FileMetadata;
 import vn.com.lol.thresh.modules.storage.service.StorageService;
 import vn.com.lol.thresh.modules.storage.service.impl.FileSystemStorageService;
@@ -32,7 +30,6 @@ public class FileUploadController extends BaseController {
     }
 
     @GetMapping("/{filename:.+}")
-    @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) throws Exception {
         Resource file = storageService.load(filename);
         return ResponseEntity.ok()

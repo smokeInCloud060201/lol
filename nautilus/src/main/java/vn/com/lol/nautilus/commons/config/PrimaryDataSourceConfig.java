@@ -13,6 +13,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
+import java.util.Objects;
 
 @Configuration
 @EnableJpaRepositories(
@@ -43,6 +44,6 @@ public class PrimaryDataSourceConfig {
     @Bean(name = "primaryTransactionManager")
     public PlatformTransactionManager primaryTransactionManager(
             @Qualifier("primaryEntityManagerFactory") LocalContainerEntityManagerFactoryBean entityManagerFactory) {
-        return new JpaTransactionManager(entityManagerFactory.getObject());
+        return new JpaTransactionManager(Objects.requireNonNull(entityManagerFactory.getObject()));
     }
 }

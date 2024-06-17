@@ -7,7 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import vn.com.lol.exceptions.ResourceExistsException;
+import vn.com.lol.common.exceptions.ResourceExistsException;
 import vn.com.lol.nautilus.modules.auth.dtos.request.AuthenticationRequest;
 import vn.com.lol.nautilus.modules.auth.dtos.response.AuthenticationResponse;
 import vn.com.lol.nautilus.modules.auth.service.AuthService;

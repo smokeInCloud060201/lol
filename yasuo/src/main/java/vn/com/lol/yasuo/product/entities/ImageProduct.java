@@ -10,19 +10,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
-import vn.com.lol.entities.BaseEntity;
-import vn.com.lol.entities.File;
-import vn.com.lol.yasuo.commons.constant.GlobalHibernateConstant;
+import vn.com.lol.common.entities.BaseEntity;
+import vn.com.lol.common.entities.File;
+import vn.com.lol.yasuo.commons.constant.HibernateConstant;
 
-import static vn.com.lol.constants.GlobalHibernateConstant.IS_NOT_DELETED;
-import static vn.com.lol.yasuo.commons.constant.GlobalHibernateConstant.Table.SOFT_DELETE_IMAGE_PRODUCT;
+import static vn.com.lol.common.constants.GlobalHibernateConstant.IS_NOT_DELETED;
+import static vn.com.lol.yasuo.commons.constant.HibernateConstant.Table.SOFT_DELETE_IMAGE_PRODUCT;
 
 
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity(name = GlobalHibernateConstant.Entity.IMAGE_PRODUCT)
-@Table(name = GlobalHibernateConstant.Table.IMAGE_PRODUCT)
+@Entity(name = HibernateConstant.Entity.IMAGE_PRODUCT)
+@Table(name = HibernateConstant.Table.IMAGE_PRODUCT)
 @SQLRestriction(IS_NOT_DELETED)
 @SQLDelete(sql = SOFT_DELETE_IMAGE_PRODUCT)
 public class ImageProduct extends BaseEntity {

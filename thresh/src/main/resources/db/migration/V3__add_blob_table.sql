@@ -5,8 +5,9 @@ CREATE TABLE IF NOT EXISTS blob
     updated_at   TIMESTAMP(6) WITH TIME ZONE NOT NULL DEFAULT now(),
     is_deleted   BOOLEAN                     NOT NULL,
     name VARCHAR(80)  NOT NULL,
-    secret_key VARCHAR(255) NOT NULL,
+    service_id VARCHAR(80)  NOT NULL,
     public_key VARCHAR(255) NOT NULL,
+    private_key VARCHAR(255) NOT NULL,
     CONSTRAINT pk_blob PRIMARY KEY (id)
 );
 

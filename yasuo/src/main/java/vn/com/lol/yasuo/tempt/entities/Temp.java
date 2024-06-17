@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
-import vn.com.lol.entities.BaseEntity;
+import vn.com.lol.common.entities.BaseEntity;
 
 
-import static vn.com.lol.constants.GlobalHibernateConstant.IS_NOT_DELETED;
-import static vn.com.lol.yasuo.commons.constant.GlobalHibernateConstant.Table.PRODUCT;
-import static vn.com.lol.yasuo.commons.constant.GlobalHibernateConstant.Table.SOFT_DELETE_PRODUCT;
+import static vn.com.lol.common.constants.GlobalHibernateConstant.IS_NOT_DELETED;
+import static vn.com.lol.yasuo.commons.constant.HibernateConstant.Table.PRODUCT;
+import static vn.com.lol.yasuo.commons.constant.HibernateConstant.Table.SOFT_DELETE_PRODUCT;
 
 
 @Getter

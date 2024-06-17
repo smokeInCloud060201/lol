@@ -9,11 +9,13 @@ import vn.com.lol.thresh.modules.storage.entities.FileMetadata;
 import vn.com.lol.thresh.modules.storage.repository.FileMetaRepository;
 import vn.com.lol.thresh.modules.storage.service.StorageService;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import static vn.com.lol.thresh.commons.constant.StorageConstant.STORAGE_ROOT_PATH;
 
@@ -24,7 +26,7 @@ public class FileSystemStorageService implements StorageService {
     private FileMetaRepository fileMetadataRepository;
 
     @Override
-    public String store(MultipartFile file) throws Exception {
+    public String store(MultipartFile file) throws IOException {
         Path rootLocation = Paths.get(STORAGE_ROOT_PATH);
         try {
             // Ensure the storage directory exists
@@ -32,7 +34,7 @@ public class FileSystemStorageService implements StorageService {
 
             // Store the file on the file system
             Path destinationFile = rootLocation.resolve(
-                            Paths.get(file.getOriginalFilename()))
+                            Paths.get(Objects.requireNonNull(file.getOriginalFilename())))
                     .normalize().toAbsolutePath();
             Files.copy(file.getInputStream(), destinationFile, StandardCopyOption.REPLACE_EXISTING);
 
@@ -47,27 +49,26 @@ public class FileSystemStorageService implements StorageService {
 
             return metadata.getUrl();
         } catch (Exception e) {
-            throw new Exception("Failed to store file " + file.getOriginalFilename(), e);
+            throw new IOException("Failed to store file " + file.getOriginalFilename(), e);
         }
     }
 
     @Override
-    public Resource load(String filename) throws Exception {
+    public Resource load(String filename) throws IOException {
         Path rootLocation = Paths.get(STORAGE_ROOT_PATH + "/pyke");
         if (!rootLocation.isAbsolute()) {
             Files.createDirectories(rootLocation);
         }
-        System.out.println(rootLocation.isAbsolute());
         try {
             Path file = rootLocation.resolve(filename);
             Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {
-                throw new Exception("Could not read file: " + filename);
+                throw new IOException("Could not read file: " + filename);
             }
         } catch (Exception e) {
-            throw new Exception("Could not read file: " + filename, e);
+            throw new IOException("Could not read file: " + filename, e);
         }
     }
 

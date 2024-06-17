@@ -3,7 +3,7 @@ package vn.com.lol.nautilus.modules.seconddb.user.repository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import vn.com.lol.nautilus.modules.seconddb.user.entities.User;
-import vn.com.lol.repository.ReadOnlyBaseRepository;
+import vn.com.lol.common.repository.ReadOnlyBaseRepository;
 
 import java.util.Optional;
 

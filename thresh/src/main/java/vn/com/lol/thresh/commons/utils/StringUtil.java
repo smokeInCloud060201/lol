@@ -5,12 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigInteger;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.SecureRandom;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -19,17 +15,8 @@ public class StringUtil {
 
     private static final String CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static final int CHARACTERS_LENGTH = 62;
+    private static final String DEFAULT_HASH = "SHA-256";
 
-    public static String[] getKeys() throws NoSuchAlgorithmException {
-        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-        keyPairGenerator.initialize(2048);
-        KeyPair keyPair = keyPairGenerator.generateKeyPair();
-        PrivateKey privateKey = keyPair.getPrivate();
-        PublicKey publicKey = keyPair.getPublic();
-
-
-        return new String[]{privateKey.toString(), publicKey.toString()};
-    }
 
     public static String generateRandomString(int length) throws Exception {
         SecureRandom random = new SecureRandom();
@@ -43,9 +30,9 @@ public class StringUtil {
 
     private static String hashString(String input) throws Exception {
         try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] encodedhash = digest.digest(input.getBytes());
-            return bytesToHex(encodedhash);
+            MessageDigest digest = MessageDigest.getInstance(DEFAULT_HASH);
+            byte[] encodedHash = digest.digest(input.getBytes());
+            return bytesToHex(encodedHash);
         } catch (NoSuchAlgorithmException e) {
             log.error("Error when generating hash string {}", e.getMessage());
             throw new NoSuchAlgorithmException(e);

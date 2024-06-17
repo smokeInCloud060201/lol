@@ -13,14 +13,14 @@ import org.hibernate.annotations.SQLRestriction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import vn.com.lol.entities.BaseEntity;
+import vn.com.lol.common.entities.BaseEntity;
 import vn.com.lol.nautilus.commons.constant.HibernateConstant;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static vn.com.lol.constants.GlobalHibernateConstant.IS_NOT_DELETED;
+import static vn.com.lol.common.constants.GlobalHibernateConstant.IS_NOT_DELETED;
 import static vn.com.lol.nautilus.commons.constant.HibernateConstant.Table.SOFT_DELETE_USER;
 import static vn.com.lol.nautilus.commons.constant.SecurityConstant.GrantAuthority.ROLE;
 import static vn.com.lol.nautilus.commons.constant.SecurityConstant.GrantAuthority.SCOPE;
