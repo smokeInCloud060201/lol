@@ -1,32 +1,43 @@
-const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
 
 module.exports = {
     entry: "./src/index.tsx",
+    mode: "development",
     output: {
-        path: path.join(__dirname, "../src/main/resources/static/"),
-        filename: "index.tsx"
+        filename: "bundle.[fullhash].js",
+        path: path.resolve(__dirname, "../src/main/resources/static"),
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: "../src/main/resources/static/index.html",
+        }),
+    ],
+    resolve: {
+        modules: [__dirname, "src", "node_modules"],
+        extensions: ["*", ".js", ".jsx", ".tsx", ".ts"],
     },
     module: {
         rules: [
             {
-                test: /\.(ts|tsx)$/,
+                test: /\.(js|ts)x?$/,
                 exclude: /node_modules/,
-                use: 'babel-loader',
+                use: ["babel-loader"]
             },
             {
-                test: /\.js$/,
+                test: /\.scss$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'postcss-loader',
+                    'sass-loader',
+                ],
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
                 exclude: /node_modules/,
-                use: 'babel-loader',
+                use: ["file-loader"]
             },
         ],
     },
-    resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.jsx'],
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: "../src/main/resources/static/index.html"
-        })
-    ]
-}
+};

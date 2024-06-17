@@ -1,12 +1,37 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "strict": true,
+    "noEmit": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitThis": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitOverride": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "alwaysStrict": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "useUnknownInCatchVariables": true,
+
+    "baseUrl": "./",
+    "module": "ES2022",
+    "moduleResolution": "node",
+
+    "target": "ES2022",
     "jsx": "react-jsx",
+
+    "allowJs": true,
+    "checkJs": true,
+
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "isolatedModules": true
   },
-  "include": ["src"]
+  "include": ["src/**/**/*"],
+  "exclude": ["node_modules"]
 }
