@@ -1,6 +1,23 @@
 server:
   port: 8086
 
+management:
+  endpoints:
+    web:
+      base-path: /_
+      path-mapping:
+        health: health
+        info: info
+        metrics: metrics
+        configprops: configprops
+        trace: trace
+        liveness: liveness
+        shutdown: shutdown
+        env: env
+        loggers: loggers
+        beans: beans
+        dump: dump
+
 spring:
   application:
     name: Nautilus - Authorize Service

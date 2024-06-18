@@ -1,21 +1,20 @@
-import {createApi} from "@reduxjs/toolkit/query";
-import {baseQueryWithReAuth} from "./base.service";
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { baseQueryWithReAuth } from './base.service';
+import { IBaseResponse } from '../interface/IBase';
+import { ILoginRequest, ILoginResponse } from '../interface/IAuth';
 
-
-const authServiceAPI = createApi({
+export const authApi = createApi({
     reducerPath: 'authServiceAPI',
-
     baseQuery: baseQueryWithReAuth,
-
-    endpoints: builder => ({
-        login : builder.mutation<string, Record<string, string>>({
-            query: (param: Record<string, string>) => ({
-                url: '/api/v1/auth/login',
+    endpoints: (builder) => ({
+        login: builder.mutation<{ data: IBaseResponse<ILoginResponse> }, ILoginRequest>({
+            query: (body: ILoginRequest) => ({
+                url: 'api/v1/auth/login',
                 method: 'POST',
-                body: param
+                body: body
             })
         })
-    }),
+    })
 });
 
-export default authServiceAPI;
+export const { useLoginMutation } = authApi;
