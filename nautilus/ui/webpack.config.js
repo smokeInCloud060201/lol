@@ -2,7 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-    entry: './src/index.tsx',
+    entry: './src/AppForm.tsx',
     mode: 'development',
     devServer: {
         hot: true,
