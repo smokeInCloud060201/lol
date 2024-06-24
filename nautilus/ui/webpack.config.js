@@ -2,11 +2,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-    entry: './src/AppForm.tsx',
+    entry: './src/index.tsx',
     mode: 'development',
     devServer: {
         hot: true,
-        port: 8080,
+        port: 3555,
         historyApiFallback: true
     },
     output: {
@@ -20,7 +20,7 @@ module.exports = {
     ],
     resolve: {
         modules: [__dirname, 'src', 'node_modules'],
-        extensions: ['*', '.js', '.jsx', '.tsx', '.ts']
+        extensions: ['.*', '.js', '.jsx', '.tsx', '.ts']
     },
     module: {
         rules: [
