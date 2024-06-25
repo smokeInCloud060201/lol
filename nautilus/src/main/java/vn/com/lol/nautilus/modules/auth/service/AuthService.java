@@ -7,5 +7,5 @@ import vn.com.lol.nautilus.modules.auth.dtos.response.AuthenticationResponse;
 
 public interface AuthService {
 
-    AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest, HttpServletRequest request) throws ResourceExistsException;
+//    AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest, HttpServletRequest request) throws ResourceExistsException;
 }

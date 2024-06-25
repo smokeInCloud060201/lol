@@ -23,12 +23,12 @@ spring:
     name: Nautilus - Authorize Service
   datasource:
     primary:
-      jdbcUrl: jdbc:postgresql://localhost:5444/nautilus
+      jdbcUrl: jdbc:postgresql://localhost:5443/nautilus
       username: root
       password: admin123
       driver-class-name: org.postgresql.Driver
     secondary:
-      jdbcUrl: jdbc:postgresql://localhost:5444/yorick
+      jdbcUrl: jdbc:postgresql://localhost:5443/yorick
       username: root
       password: admin123
       driver-class-name: org.postgresql.Driver
@@ -40,7 +40,7 @@ spring:
       hibernate:
         format_sql: true
   flyway:
-    url: jdbc:postgresql://localhost:5444/nautilus
+    url: jdbc:postgresql://localhost:5443/nautilus
     user: root
     password: admin123
     baseline-on-migrate: true

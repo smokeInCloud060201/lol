@@ -1,10 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { Button, Box, Typography, TextField } from '@mui/material';
 import { useSpring, animated } from '@react-spring/web';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { PASSWORD_REGEX } from '../../constant';
-import { valueOf } from 'ts-loader';
+import { useSearchParams } from 'react-router-dom';
 
 type TForm = 'SignUp' | 'SignIn';
 
@@ -23,6 +23,12 @@ interface ISignIn {
 const AuthenticationForm: React.FC = () => {
     const [formType, setFormType] = useState<TForm>('SignIn');
     const ref = useRef<HTMLDivElement>(null);
+
+    const [searchParams] = useSearchParams();
+
+    const accessToken = useMemo(() => {
+        return searchParams.get('access-token');
+    }, [searchParams]);
 
     const boxSignInAnimatedStyles = useSpring({
         opacity: formType === 'SignIn' ? 1 : 0,
@@ -98,6 +104,8 @@ const AuthenticationForm: React.FC = () => {
                                 <Form>
                                     <Box mb={2}>
                                         <TextField
+                                            label={'email'}
+                                            color={'info'}
                                             name={'email'}
                                             variant="outlined"
                                             fullWidth
@@ -201,7 +209,7 @@ const AuthenticationForm: React.FC = () => {
                                             variant="outlined"
                                             fullWidth
                                             value={props.values.confirmPassword}
-                                            onChange={props.handleChange}
+                                            onChange={props?.handleChange}
                                             required
                                             type="password"
                                         />

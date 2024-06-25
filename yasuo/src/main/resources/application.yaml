@@ -5,7 +5,7 @@ spring:
   application:
     name: Yasuo Application
   datasource:
-    url: jdbc:postgresql://localhost:5444/yasuo
+    url: jdbc:postgresql://localhost:5443/yasuo
     username: root
     password: admin123
   jpa:

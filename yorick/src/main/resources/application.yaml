@@ -5,7 +5,7 @@ spring:
   application:
     name: Yorick Application - User service
   datasource:
-    url: jdbc:postgresql://localhost:5444/yorick
+    url: jdbc:postgresql://localhost:5443/yorick
     username: root
     password: admin123
   jpa:

@@ -5,7 +5,7 @@ spring:
   application:
     name: Thresh-Application S3 storage
   datasource:
-    url: jdbc:postgresql://localhost:5444/thresh
+    url: jdbc:postgresql://localhost:5443/thresh
     username: root
     password: admin123
   jpa:

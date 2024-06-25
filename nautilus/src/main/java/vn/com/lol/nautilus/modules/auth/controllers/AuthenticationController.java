@@ -21,12 +21,12 @@ import static vn.com.lol.nautilus.commons.constant.ControllerPathConstant.AUTH_B
 @RequestMapping(ControllerPathConstant.API_V1_PREFIX_BASE_PATH + AUTH_BASE)
 public class AuthenticationController extends BaseController {
 
-    private final AuthService authService;
-
-    @PostMapping("/login")
-    public BaseResponse<AuthenticationResponse> authentication(@RequestBody AuthenticationRequest authenticationRequest, HttpServletRequest request) throws ResourceExistsException {
-        return BaseResponse.<AuthenticationResponse>builder()
-                .data(authService.authenticate(authenticationRequest, request))
-                .build();
-    }
+//    private final AuthService authService;
+//
+//    @PostMapping("/login")
+//    public BaseResponse<AuthenticationResponse> authentication(@RequestBody AuthenticationRequest authenticationRequest, HttpServletRequest request) throws ResourceExistsException {
+//        return BaseResponse.<AuthenticationResponse>builder()
+//                .data(authService.authenticate(authenticationRequest, request))
+//                .build();
+//    }
 }

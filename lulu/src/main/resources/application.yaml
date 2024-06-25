@@ -5,7 +5,7 @@ spring:
   application:
     name: Lulu Application - Message Driven Service
   datasource:
-    url: jdbc:postgresql://localhost:5444/lulu
+    url: jdbc:postgresql://localhost:5443/lulu
     username: root
     password: admin123
   jpa:
