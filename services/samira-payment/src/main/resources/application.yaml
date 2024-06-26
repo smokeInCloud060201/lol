@@ -1,0 +1,6 @@
+server:
+  port: 8787
+
+spring:
+  application:
+    name: Samira Application - Payment Service
