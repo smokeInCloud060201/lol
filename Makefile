@@ -1,4 +1,3 @@
-.PHONY: setup db-setup services-setup docker-network-setup monitor-setup
 
 setup: docker-network-setup db-setup services-setup monitor-setup
 

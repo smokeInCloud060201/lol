@@ -4,6 +4,7 @@ import { useSpring, animated } from "@react-spring/web";
 import { PASSWORD_REGEX } from "../../constant";
 import { Formik, Form, FormikProps } from "formik";
 import * as Yup from "yup";
+import { useLoginMutation } from "../../services/auth.service";
 
 type TForm = "SignUp" | "SignIn";
 
@@ -23,42 +24,26 @@ const AuthenticationForm: React.FC = () => {
   const [formType, setFormType] = useState<TForm>("SignIn");
   const ref = useRef<HTMLDivElement>();
 
-  // const [searchParams] = useSearchParams();
-  //
-  // const accessToken = useMemo(() => {
-  //   return searchParams.get("access-token");
-  // }, [searchParams]);
-
-  const [toggle, setToggle] = React.useState(false);
+  const [login] = useLoginMutation();
 
   const boxSignInAnimatedStyles: any = useSpring({
     from: {
-      opacity: toggle ? 0 : 1,
-      right: toggle ? "0" : "200px",
-      // transform: `translate3d(0, 0, 0)`
+      right: formType === "SignIn" ? "0" : "200px",
     },
-    to: async (next, cancel) => {
+    to: async (next) => {
       await next({
-        opacity: toggle ? 1 : 0,
-        x: 200,
-        right: toggle ? "200px" : "0",
-        // transform: `translate3d("240px", 0, 0)`
+        right: formType === "SignIn" ? "200px" : "0",
       });
     },
   });
 
   const boxSignUpAnimatedStyles: any = useSpring({
     from: {
-      opacity: toggle ? 0 : 1,
-      right: toggle ? "0" : "200px",
-      // transform: `translate3d(0, 0, 0)`
+      right: formType === "SignIn" ? "0" : "200px",
     },
-    to: async (next, cancel) => {
+    to: async (next) => {
       await next({
-        opacity: toggle ? 1 : 0,
-        x: 200,
-        right: toggle ? "200px" : "0",
-        // transform: `translate3d("240px", 0, 0)`
+        right: formType === "SignIn" ? "200px" : "0",
       });
     },
   });
@@ -68,7 +53,12 @@ const AuthenticationForm: React.FC = () => {
   };
 
   const handleLogin = (values: ISignIn) => {
-    console.log(values);
+    login(values)
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
   };
 
   const signUpSchema = Yup.object().shape({

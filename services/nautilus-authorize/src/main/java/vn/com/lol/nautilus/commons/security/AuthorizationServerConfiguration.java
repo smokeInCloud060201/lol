@@ -21,6 +21,8 @@ import vn.com.lol.nautilus.commons.security.grantPassword.OAuth2GrantPasswordAut
 public class AuthorizationServerConfiguration {
 
     private final CorsConfigurationSource corsConfigurationSource;
+    private final CustomAuthenticationEntryPoint authenticationEntryPoint;
+
 
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -41,13 +43,7 @@ public class AuthorizationServerConfiguration {
                                 .authenticationProvider(daoAuthenticationProvider)
                 );
 
-        http
-                .exceptionHandling(
-                        exceptions ->
-                                exceptions.authenticationEntryPoint(
-                                        new LoginUrlAuthenticationEntryPoint("/login")
-                                )
-                );
+        http.exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(authenticationEntryPoint));
 
         return http.build();
     }
