@@ -9,6 +9,8 @@ import vn.com.lol.yorick.modules.user.repositories.UserRepository;
 import vn.com.lol.yorick.modules.user.dtos.response.UserResponseDTO;
 import vn.com.lol.yorick.modules.user.service.UserService;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -21,6 +23,11 @@ public class UserServiceImpl implements UserService {
     public UserResponseDTO getUserByUserName(String userName) {
         User user = userRepository.findByUserName(userName).orElse(null);
         return userMapper.mapUserToUserResponse(user);
+    }
+
+    public List<UserResponseDTO> searchUsers() {
+
+        return null;
     }
 
 }

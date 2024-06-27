@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: Lulu Application - Message Driven Service
+    name: Lulu Application - Notification Service
   datasource:
     url: jdbc:postgresql://localhost:5443/lulu
     username: root
@@ -15,25 +15,21 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
-
-
-
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    username: "${MAIL_USERNAME:karson.ecommerce@gmail.com}"
+    password: "${MAIL_PASSWORD:xqjmzeqrwnjtqwul}"
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 logging:
   level:
     org.hibernate:
       sql: debug
       type: trace
-
-
-
-
-
-
-
-
-
-
-
-

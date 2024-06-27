@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  eureka:
+    container_name: twisted-fate
+    build:
+      context: ../../../services/twistedfate
+      dockerfile: Dockerfile
+    restart: "no"
+    networks:
+      - lol-network
+    ports:
+      - "8084:8084"
+
+networks:
+  lol-network:
+    external: true
