@@ -4,7 +4,7 @@ services:
   eureka:
     container_name: twisted-fate
     build:
-      context: ../../../services/twistedfate
+      context: ../../../services/twistedfate-discovery
       dockerfile: Dockerfile
     restart: "no"
     networks:

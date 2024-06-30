@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import vn.com.lol.common.enums.ExceptionErrorCode;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Getter
 public class BaseResponse <T> {

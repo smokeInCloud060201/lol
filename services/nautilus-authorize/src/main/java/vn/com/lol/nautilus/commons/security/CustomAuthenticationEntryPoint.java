@@ -19,7 +19,10 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        BaseResponse<Object> re = new BaseResponse(null, "UnAuthorization cause " + authException.getMessage(), ExceptionErrorCode.E_004);
+        BaseResponse<Object> re = BaseResponse.builder()
+                .errorMessage("UnAuthorization cause " + authException.getMessage())
+                .errorCode(ExceptionErrorCode.E_004)
+                .build();
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         OutputStream responseStream = response.getOutputStream();

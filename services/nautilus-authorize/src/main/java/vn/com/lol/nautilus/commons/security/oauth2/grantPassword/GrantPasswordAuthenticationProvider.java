@@ -1,9 +1,7 @@
-package vn.com.lol.nautilus.commons.security.grantPassword;
+package vn.com.lol.nautilus.commons.security.oauth2.grantPassword;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -24,12 +22,10 @@ import org.springframework.security.oauth2.server.authorization.token.DefaultOAu
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
-import vn.com.lol.nautilus.modules.seconddb.user.entities.User;
 
 import java.security.Principal;
 
-import static vn.com.lol.nautilus.commons.security.grantPassword.AuthorizationGrantTypePassword.GRANT_PASSWORD;
+import static vn.com.lol.nautilus.commons.security.oauth2.Oauth2GrantType.GRANT_PASSWORD;
 
 
 @RequiredArgsConstructor

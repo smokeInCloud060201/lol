@@ -1,4 +1,4 @@
-package vn.com.lol.nautilus.commons.security;
+package vn.com.lol.nautilus.commons.security.oauth2;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;

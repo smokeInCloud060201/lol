@@ -5,10 +5,10 @@ docker-network-setup:
 	docker network create --driver bridge lol-network || true
 
 db-setup:
-	docker-compose -p lol-base -f ./infra/build/docker-composes/base.docker-compose.yml up -d
+	docker-compose -p lol-base -f ./infra/Ibuild/docker-composes/base.docker-compose.yml up -d
 
 services-setup:
-	docker-compose -p lol-services -f ./infra/build/docker-composes/service.docker-compose.yml up -d
+	docker-compose -p lol-services -f ./infra/Ibuild/docker-composes/service.docker-compose.yml up -d
 
 monitor-setup:
-	docker-compose -p lol-moniter -f ./infra/build/docker-composes/moniter.docker-compose.yml up -d
+	docker-compose -p lol-moniter -f ./infra/Ibuild/docker-composes/moniter.docker-compose.yml up -d

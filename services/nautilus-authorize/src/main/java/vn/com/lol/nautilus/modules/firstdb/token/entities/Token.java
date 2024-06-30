@@ -29,12 +29,12 @@ public class Token extends BaseEntity {
     @Column(name = "refresh_token")
     private String refreshToken;
 
-    @Column(name = "token_expired")
-    private Long tokenExpired;
+    @Column(name = "token_id")
+    private String tokenId;
 
-    @Column(name = "refresh_token_expired")
-    private Long refreshTokenExpired;
+    @Column(name = "client_id")
+    private String clientId;
 
-    @Column(name = "invoked")
-    private boolean invoked;
+    @Column(name = "oauth2_authorization")
+    private String oauth2Authorization;
 }

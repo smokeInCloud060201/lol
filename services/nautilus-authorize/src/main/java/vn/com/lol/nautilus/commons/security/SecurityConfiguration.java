@@ -11,7 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 @EnableWebSecurity
-@Configuration(proxyBeanMethods = false)
+@Configuration
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
@@ -23,13 +23,16 @@ public class SecurityConfiguration {
         return http
                 .cors(src -> src.configurationSource(corsConfigurationSource))
                 .csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(
-                authorize -> authorize.requestMatchers("/oauth2/token/**").permitAll()
-                    .anyRequest()
-                        .authenticated()
-            )
-            .logout(LogoutConfigurer::permitAll)
+                .authorizeHttpRequests(
+                        authorize -> authorize.requestMatchers("/oauth2/token/**")
+                                .permitAll()
+                                .requestMatchers("/_/**")
+                                .permitAll()
+                                .anyRequest()
+                                .authenticated()
+                )
+                .logout(LogoutConfigurer::permitAll)
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(authenticationEntryPoint))
-            .build();
+                .build();
     }
 }

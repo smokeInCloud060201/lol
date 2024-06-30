@@ -1,4 +1,4 @@
-package vn.com.lol.nautilus.commons.security.grantPassword;
+package vn.com.lol.nautilus.commons.security.oauth2.grantPassword;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.lang.Nullable;
@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static vn.com.lol.nautilus.commons.security.grantPassword.AuthorizationGrantTypePassword.GRANT_PASSWORD;
+import static vn.com.lol.nautilus.commons.security.oauth2.Oauth2GrantType.GRANT_PASSWORD;
 
 public class OAuth2GrantPasswordAuthenticationConverter implements AuthenticationConverter {
 

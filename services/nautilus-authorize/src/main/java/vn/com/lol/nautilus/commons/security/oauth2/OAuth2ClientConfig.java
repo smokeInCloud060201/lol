@@ -1,5 +1,6 @@
-package vn.com.lol.nautilus.commons.security;
+package vn.com.lol.nautilus.commons.security.oauth2;
 
+import jakarta.persistence.SecondaryTable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,12 +10,11 @@ import org.springframework.security.oauth2.server.authorization.client.InMemoryR
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
-import vn.com.lol.nautilus.commons.security.OAuth2ClientProperties;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Configuration
 @RequiredArgsConstructor
@@ -25,7 +25,7 @@ public class OAuth2ClientConfig {
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
         List<RegisteredClient> registeredClients = clientProperties.getClients().stream()
-                .map(client -> RegisteredClient.withId(UUID.randomUUID().toString())
+                .map(client -> RegisteredClient.withId(client.getRegisterClientId())
                         .clientId(client.getClientId())
                         .clientSecret(client.getClientSecret())
                         .clientName(client.getClientName())
@@ -34,8 +34,11 @@ public class OAuth2ClientConfig {
                         .authorizationGrantTypes(grantTypes -> client.getAuthorizationGrantTypes().forEach(grantType ->
                                 grantTypes.add(new AuthorizationGrantType(grantType))
                         ))
+                        .scopes(strings -> strings.addAll(client.getScopes()))
                         .tokenSettings(TokenSettings.builder()
                                 .accessTokenTimeToLive(Duration.ofSeconds(client.getTokenSettings().getAccessTokenTimeToLive()))
+                                .refreshTokenTimeToLive(Duration.ofSeconds(client.getTokenSettings().getRefreshTokenTimeToLive()))
+                                .reuseRefreshTokens(client.getTokenSettings().isReuseRefreshToken())
                                 .build())
                         .build()
                 )

@@ -67,15 +67,23 @@ security:
 oauth2:
   clients:
     - clientId: demo-client
+      registerClientId: 75f78c2f-f0dc-4f75-b9d0-64f87604f9ea
       clientSecret: "$2a$10$NyUJXgkdoztj7Leq9MOM8.1NGdIUJcx.kWzEP.97WCA7Uek0VCflC"
       clientName: Demo client
       redirectUri: http://localhost:5173/auth
-      clientAuthenticationMethod: client_secret_basic
+      clientAuthenticationMethod: client_secret_post
+      scopes:
+        - oid
+        - profile
+        - notification
       authorizationGrantTypes:
         - authorization_code
         - refresh_token
         - grant_password
+        - client_credentials
       tokenSettings:
         accessTokenTimeToLive: 3600
+        refreshTokenTimeToLive: 84000
+        reuseRefreshToken: true
 
 
