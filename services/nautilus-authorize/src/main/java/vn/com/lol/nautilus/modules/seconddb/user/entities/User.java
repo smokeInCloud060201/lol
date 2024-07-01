@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,7 +26,6 @@ import static vn.com.lol.nautilus.commons.constant.SecurityConstant.GrantAuthori
 import static vn.com.lol.nautilus.commons.constant.SecurityConstant.GrantAuthority.SCOPE;
 
 
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -35,7 +33,6 @@ import static vn.com.lol.nautilus.commons.constant.SecurityConstant.GrantAuthori
 @Table(name = HibernateConstant.Table.USER)
 @SQLRestriction(IS_NOT_DELETED)
 @SQLDelete(sql = SOFT_DELETE_USER)
-@AllArgsConstructor
 public class User extends BaseEntity implements UserDetails, Serializable {
 
     @Column(name = "email")
@@ -62,26 +59,25 @@ public class User extends BaseEntity implements UserDetails, Serializable {
     @Column(name = "is_enabled")
     private boolean isEnabled;
 
-//    @ManyToMany(mappedBy = "userRoles", fetch = FetchType.EAGER)
-//    private List<Role> roleUsers;
+    @ManyToMany(mappedBy = "userRoles", fetch = FetchType.EAGER)
+    private List<Role> roleUsers;
 
     transient List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-
-
 
 
     @Override
     public List<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> simpleGrantedAuthorityList = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ARTICLE_READ"));
-        authorities.add(new SimpleGrantedAuthority("ARTICLE_WRITE"));
-//        roleUsers.forEach(role -> {
-//            role.getPermissionRoles()
-//                    .forEach(permission -> simpleGrantedAuthorityList.add(new SimpleGrantedAuthority(SCOPE + permission.getName())));
-//            simpleGrantedAuthorityList.add(new SimpleGrantedAuthority(ROLE + role.getName()));
-//        });
+        if (roleUsers == null) {
+            return simpleGrantedAuthorityList;
+        }
+        roleUsers.forEach(role -> {
+            role.getPermissionRoles()
+                    .forEach(permission -> simpleGrantedAuthorityList.add(new SimpleGrantedAuthority(SCOPE + permission.getName())));
+            simpleGrantedAuthorityList.add(new SimpleGrantedAuthority(ROLE + role.getName()));
+        });
 
-        return authorities;
+        return simpleGrantedAuthorityList;
     }
 
     @Override
