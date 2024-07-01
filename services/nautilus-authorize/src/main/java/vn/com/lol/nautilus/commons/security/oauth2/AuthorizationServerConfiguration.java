@@ -34,6 +34,7 @@ public class AuthorizationServerConfiguration {
     private final GrantPasswordAuthenticationProvider grantPasswordAuthenticationProvider;
 
     private final DaoAuthenticationProvider daoAuthenticationProvider;
+    private final Oauth2SuccessHandler oauth2SuccessHandler;
 
     public AuthorizationServerConfiguration(CorsConfigurationSource corsConfigurationSource, CustomAuthenticationEntryPoint authenticationEntryPoint,
                                             RefreshTokenAuthenticationConverter refreshTokenAuthenticationConverter,
@@ -41,7 +42,7 @@ public class AuthorizationServerConfiguration {
                                             Oauth2ErrorAuthenticationExceptionHandler oAuth2ErrorHandle,
                                             @Qualifier("refreshTokenAuthenticationProvider") @NonNull RefreshTokenAuthenticationProvider refreshTokenAuthenticationProvider,
                                             @Qualifier("grantPasswordAuthenticationProvider") @NonNull GrantPasswordAuthenticationProvider grantPasswordAuthenticationProvider,
-                                            @Qualifier("basicAuthenticationProvider") @NonNull DaoAuthenticationProvider daoAuthenticationProvider) {
+                                            @Qualifier("basicAuthenticationProvider") @NonNull DaoAuthenticationProvider daoAuthenticationProvider, Oauth2SuccessHandler oauth2SuccessHandler) {
         this.corsConfigurationSource = corsConfigurationSource;
         this.authenticationEntryPoint = authenticationEntryPoint;
         this.refreshTokenAuthenticationConverter = refreshTokenAuthenticationConverter;
@@ -50,6 +51,7 @@ public class AuthorizationServerConfiguration {
         this.refreshTokenAuthenticationProvider = refreshTokenAuthenticationProvider;
         this.grantPasswordAuthenticationProvider = grantPasswordAuthenticationProvider;
         this.daoAuthenticationProvider = daoAuthenticationProvider;
+        this.oauth2SuccessHandler = oauth2SuccessHandler;
     }
 
 
@@ -69,6 +71,7 @@ public class AuthorizationServerConfiguration {
                                 .authenticationProvider(grantPasswordAuthenticationProvider)
                                 .authenticationProvider(refreshTokenAuthenticationProvider)
                                 .authenticationProvider(daoAuthenticationProvider)
+                                .accessTokenResponseHandler(oauth2SuccessHandler)
                                 .errorResponseHandler(oAuth2ErrorHandle)
                 );
         return http.build();
