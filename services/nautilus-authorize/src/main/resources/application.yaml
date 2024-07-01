@@ -27,11 +27,21 @@ spring:
       username: root
       password: admin123
       driver-class-name: org.postgresql.Driver
+      jpa:
+        properties:
+          hibernate:
+            show-sql: true
+            format-sql: true
     secondary:
       jdbcUrl: jdbc:postgresql://localhost:5443/yorick
       username: root
       password: admin123
       driver-class-name: org.postgresql.Driver
+      jpa:
+        properties:
+          hibernate:
+            show-sql: true
+            format-sql: true
   jpa:
     hibernate:
       ddl-auto: validate
@@ -56,6 +66,8 @@ logging:
     vn.com.lol: DEBUG
     org.springframework.jdbc: DEBUG
     org.springframework.security: TRACE
+    org.hibernate.sql: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
 security:
   jwt:
@@ -83,7 +95,7 @@ oauth2:
         - client_credentials
       tokenSettings:
         accessTokenTimeToLive: 3600
-        refreshTokenTimeToLive: 84000
+        refreshTokenTimeToLive: 86400
         reuseRefreshToken: true
 
 

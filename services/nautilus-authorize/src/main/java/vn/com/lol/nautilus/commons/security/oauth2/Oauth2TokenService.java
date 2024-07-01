@@ -7,11 +7,16 @@ import org.springframework.security.oauth2.core.*;
 import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
+import org.springframework.security.oauth2.server.authorization.authentication.OAuth2ClientAuthenticationToken;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import vn.com.lol.common.utils.JsonUtil;
 import vn.com.lol.nautilus.commons.serializer.AuthorizationGrantTypeDeserializer;
 import vn.com.lol.nautilus.modules.firstdb.token.TokenRepository;
 import vn.com.lol.nautilus.modules.firstdb.token.entities.Token;
+import vn.com.lol.nautilus.modules.firstdb.token.enums.TokenType;
+import vn.com.lol.nautilus.modules.seconddb.user.entities.User;
+import vn.com.lol.nautilus.modules.seconddb.user.repository.UserRepository;
 
 import java.util.Optional;
 
@@ -23,6 +28,7 @@ import static vn.com.lol.nautilus.commons.utils.Oauth2AuthorizationUtil.mapToken
 public class Oauth2TokenService implements OAuth2AuthorizationService {
 
     private final TokenRepository tokenRepository;
+    private final UserRepository userRepository;
 
 
     @Override
@@ -37,6 +43,19 @@ public class Oauth2TokenService implements OAuth2AuthorizationService {
         token.setOauth2Authorization(oauth2Authorization);
         token.setClientId(authorization.getRegisteredClientId());
         token.setTokenId(authorization.getId());
+        token.setTokenType(TokenType.OAUTH2);
+        OAuth2ClientAuthenticationToken authenticationToken = authorization.getAttribute("java.security.Principal");
+
+        User currentUser = null;
+        try {
+            if (Optional.ofNullable(authenticationToken).map(OAuth2ClientAuthenticationToken::getDetails).isPresent()) {
+                currentUser = (User) authenticationToken.getDetails();
+                token.setUsername(currentUser.getEmail());
+            }
+        } catch (OAuth2AuthenticationException e) {
+            log.error("Error occurred while getting user details from authentication token", e);
+        }
+
         log.info("Saved token with id {} for client {}", token.getTokenId(), token.getClientId());
         tokenRepository.save(token);
 
@@ -53,19 +72,42 @@ public class Oauth2TokenService implements OAuth2AuthorizationService {
                 .map(AbstractOAuth2Token::getTokenValue)
                 .orElse("");
         String clientId = authorization.getRegisteredClientId();
-        tokenRepository.findByToken(accessToken, refreshToken, clientId).ifPresent(tokenRepository::delete);
+        tokenRepository.findByToken(accessToken, refreshToken, clientId, TokenType.OAUTH2).ifPresent(tokenRepository::delete);
     }
 
     @Override
     public OAuth2Authorization findById(String id) {
-        Token token = tokenRepository.findByTokenId(id).orElse(null);
+        Token token = tokenRepository.findByTokenId(id, TokenType.OAUTH2).orElse(null);
         return getOauth2AuthorizationFromToken(token);
     }
 
     @Override
     public OAuth2Authorization findByToken(String token, OAuth2TokenType tokenType) {
-        Token token1 = tokenRepository.findByToken(token).orElse(null);
+        Token token1 = tokenRepository.findByToken(token, TokenType.OAUTH2).orElse(null);
         return getOauth2AuthorizationFromToken(token1);
+    }
+
+    public User findUserDetailByToken(String tokenString) {
+        Token token = tokenRepository.findByToken(tokenString, TokenType.OAUTH2).orElse(null);
+
+        if (token == null) {
+            return null;
+        }
+
+        return userRepository.findByUserName(token.getUsername()).orElse(null);
+    }
+
+    public void updateTokenRefreshStatus(String tokenString) {
+        Token token = tokenRepository.findByToken(tokenString, TokenType.OAUTH2).orElse(null);
+        if (token!= null) {
+            log.info("Update token status into refreshed {}", tokenString);
+            token.setRefreshed(true);
+            tokenRepository.save(token);
+        }
+    }
+
+    public boolean isTokenRefreshed(String tokenString) {
+        return !tokenRepository.isTokenNotRefreshed(tokenString, TokenType.OAUTH2);
     }
 
     private OAuth2Authorization getOauth2AuthorizationFromToken(Token token) {

@@ -1,16 +1,21 @@
 package vn.com.lol.nautilus.commons.security.oauth2.refresh_token;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.token.TokenService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.web.authentication.AuthenticationConverter;
+import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
+import vn.com.lol.nautilus.commons.security.oauth2.Oauth2TokenService;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -20,7 +25,12 @@ import java.util.stream.Collectors;
 
 import static vn.com.lol.nautilus.commons.security.oauth2.Oauth2GrantType.REFRESH_TOKEN;
 
+@Component
+@RequiredArgsConstructor
 public class RefreshTokenAuthenticationConverter implements AuthenticationConverter {
+
+    private final Oauth2TokenService oauth2TokenService;
+
 
     @Nullable
     @Override
@@ -43,10 +53,15 @@ public class RefreshTokenAuthenticationConverter implements AuthenticationConver
         }
         // refreshToken (REQUIRED)
         String refreshToken = parameters.getFirst(OAuth2ParameterNames.REFRESH_TOKEN);
-        if (StringUtils.hasText(scope)
+
+        if (StringUtils.hasText(refreshToken)
                 && parameters.get(OAuth2ParameterNames.REFRESH_TOKEN).size() != 1
         ) {
             throw new OAuth2AuthenticationException(OAuth2ErrorCodes.INVALID_REQUEST);
+        }
+
+        if (oauth2TokenService.isTokenRefreshed(refreshToken)) {
+            throw new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodes.INVALID_REQUEST), "Token has already been refreshed.");
         }
 
 

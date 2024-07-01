@@ -48,7 +48,7 @@ public class BaseController {
      *
      * @author Ngoc Khanh
      */
-    private ResponseEntity<BaseResponse<Object>> buildErrorResponse(Exception e, ExceptionErrorCode exceptionErrorCode, HttpStatus status) {
+    protected ResponseEntity<BaseResponse<Object>> buildErrorResponse(Exception e, ExceptionErrorCode exceptionErrorCode, HttpStatus status) {
         final String errorMessage = e.getMessage();
         return ResponseEntity.status(status)
                 .body(BaseResponse.builder()

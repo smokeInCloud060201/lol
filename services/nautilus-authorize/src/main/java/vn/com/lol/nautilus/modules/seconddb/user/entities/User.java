@@ -38,8 +38,6 @@ import static vn.com.lol.nautilus.commons.constant.SecurityConstant.GrantAuthori
 @AllArgsConstructor
 public class User extends BaseEntity implements UserDetails, Serializable {
 
-
-
     @Column(name = "email")
     private String email;
 

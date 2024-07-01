@@ -36,8 +36,11 @@ public class PrimaryDataSourceConfig {
         em.setPackagesToScan("vn.com.lol.nautilus.modules.firstdb"); // Primary entities package
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setShowSql(true);
         em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaPropertyMap(new HashMap<>());
+        HashMap<String, Object> properties = new HashMap<>();
+        properties.put("hibernate.format_sql","true");
+        em.setJpaPropertyMap(properties);
         return em;
     }
 

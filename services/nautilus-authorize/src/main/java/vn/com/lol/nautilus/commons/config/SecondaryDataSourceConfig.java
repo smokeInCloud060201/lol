@@ -25,7 +25,8 @@ public class SecondaryDataSourceConfig {
     @Bean(name = "secondaryDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.secondary")
     public DataSource secondaryDataSource() {
-        return DataSourceBuilder.create().build();
+        return DataSourceBuilder.create()
+                .build();
     }
 
     @Bean(name = "secondaryEntityManagerFactory")
@@ -36,8 +37,10 @@ public class SecondaryDataSourceConfig {
         em.setPackagesToScan("vn.com.lol.nautilus.modules.seconddb"); // Secondary entities package
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setShowSql(true);
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<>();
+        properties.put("hibernate.format_sql","true");
         em.setJpaPropertyMap(properties);
         return em;
     }

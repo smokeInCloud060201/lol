@@ -8,16 +8,19 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import vn.com.lol.common.serializer.SafeSerializer;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Map;
 import java.util.Set;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+
 @Slf4j
 public class JsonUtil {
     private static ObjectMapper mapper;
-    private static ObjectWriter writer;
 
     private JsonUtil() {}
 
@@ -25,19 +28,16 @@ public class JsonUtil {
         if (mapper != null) {
             return;
         }
-
-        mapper = new ObjectMapper()
-                .registerModules(new JavaTimeModule())
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                .configure(SerializationFeature.INDENT_OUTPUT, true);
-
-        DefaultPrettyPrinter pp = new DefaultPrettyPrinter()
-                .withoutSpacesInObjectEntries()
-                .withArrayIndenter(new DefaultPrettyPrinter.NopIndenter())
-                .withObjectIndenter(new DefaultPrettyPrinter.NopIndenter());
-        writer = new ObjectMapper()
-                .registerModules(new JavaTimeModule())
-                .writer().with(pp);
+        SimpleModule simpleModule = new SimpleModule();
+        simpleModule.addSerializer(Object.class, new SafeSerializer());
+        mapper = Jackson2ObjectMapperBuilder.json()
+                .serializationInclusion(NON_NULL)
+                .failOnEmptyBeans(false)
+                .failOnUnknownProperties(false)
+                .featuresToEnable(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .modules(new JavaTimeModule())
+                .build();
     }
 
     public static void setMapper(Module module) {
@@ -53,7 +53,7 @@ public class JsonUtil {
     public static String stringify(Object data) {
         initialize();
         try {
-            return writer.writeValueAsString(data);
+            return mapper.writeValueAsString(data);
         } catch (JsonProcessingException e) {
             log.error("EXCEPTION WHEN PARSE OBJECT TO STRING {}", e.getMessage());
         }
@@ -63,7 +63,7 @@ public class JsonUtil {
     public static void stringify(Object data, OutputStream output) {
         initialize();
         try {
-            writer.writeValue(output, data);
+            mapper.writeValue(output, data);
         } catch (IOException e) {
             log.error("EXCEPTION WHEN PARSE OBJECT TO STRING {}", e.getMessage());
         }

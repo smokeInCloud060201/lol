@@ -18,22 +18,23 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Toke
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 import org.springframework.stereotype.Component;
 import vn.com.lol.nautilus.commons.security.oauth2.Oauth2TokenService;
+import vn.com.lol.nautilus.modules.seconddb.user.entities.User;
 
 import java.security.Principal;
 
 import static vn.com.lol.nautilus.commons.security.oauth2.Oauth2GrantType.GRANT_PASSWORD;
 import static vn.com.lol.nautilus.commons.security.oauth2.Oauth2GrantType.REFRESH_TOKEN;
 
-@Component
+@Component(value = "refreshTokenAuthenticationProvider")
 @RequiredArgsConstructor
 @Slf4j
 public class RefreshTokenAuthenticationProvider implements AuthenticationProvider {
 
     private static final String ERROR_URI = "https://datatracker.ietf.org/doc/html/rfc6749#section-5.2";
 
-    private final OAuth2AuthorizationService authorizationService;
     private final OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator;
     private final Oauth2TokenService oauth2TokenService;
+
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -41,6 +42,12 @@ public class RefreshTokenAuthenticationProvider implements AuthenticationProvide
 
         OAuth2ClientAuthenticationToken clientPrincipal =
                 getAuthenticatedClientElseThrowInvalidClient(customRefreshTokenAuthentication);
+
+        String oldRefreshToken = customRefreshTokenAuthentication.getRefreshToken();
+
+        //Set userDetails into token
+        User user = oauth2TokenService.findUserDetailByToken(oldRefreshToken);
+        clientPrincipal.setDetails(user);
 
         RegisteredClient registeredClient = clientPrincipal.getRegisteredClient();
 
@@ -57,8 +64,6 @@ public class RefreshTokenAuthenticationProvider implements AuthenticationProvide
         if (log.isTraceEnabled()) {
             log.trace("Retrieved authorization with refresh token");
         }
-
-        String oldRefreshToken = customRefreshTokenAuthentication.getRefreshToken();
 
         OAuth2Authorization oAuth2Authorization = oauth2TokenService.findByToken(oldRefreshToken, OAuth2TokenType.REFRESH_TOKEN);
 
@@ -111,11 +116,11 @@ public class RefreshTokenAuthenticationProvider implements AuthenticationProvide
                 .authorizationGrantType(REFRESH_TOKEN)
                 .authorizedScopes(registeredClient.getScopes());
 
-        if (generatedAccessToken instanceof ClaimAccessor) {
+        if (generatedAccessToken instanceof ClaimAccessor geClaimAccessor) {
             authorizationBuilder.token(accessToken, (metadata) ->
                     metadata.put(
                             OAuth2Authorization.Token.CLAIMS_METADATA_NAME,
-                            ((ClaimAccessor) generatedAccessToken).getClaims()
+                            (geClaimAccessor).getClaims()
                     )
             );
         } else {
@@ -146,7 +151,7 @@ public class RefreshTokenAuthenticationProvider implements AuthenticationProvide
 
         OAuth2Authorization authorization = authorizationBuilder.build();
 
-        authorizationService.save(authorization);
+        oauth2TokenService.save(authorization);
 
         if (log.isTraceEnabled()) {
             log.trace("Saved authorization");
@@ -156,6 +161,8 @@ public class RefreshTokenAuthenticationProvider implements AuthenticationProvide
             log.trace("Authenticated token request");
         }
 
+        oauth2TokenService.updateTokenRefreshStatus(oldRefreshToken);
+
 
         return new OAuth2AccessTokenAuthenticationToken(
                 registeredClient, clientPrincipal, accessToken, refreshToken
@@ -164,7 +171,6 @@ public class RefreshTokenAuthenticationProvider implements AuthenticationProvide
 
     @Override
     public boolean supports(Class<?> authentication) {
-        System.out.println(authentication);
         return RefreshTokenAuthentication.class.isAssignableFrom(authentication);
     }
 

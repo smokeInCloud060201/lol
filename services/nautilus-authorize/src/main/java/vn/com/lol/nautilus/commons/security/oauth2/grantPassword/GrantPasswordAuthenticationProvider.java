@@ -29,7 +29,7 @@ import static vn.com.lol.nautilus.commons.security.oauth2.Oauth2GrantType.GRANT_
 
 
 @RequiredArgsConstructor
-@Component
+@Component(value = "grantPasswordAuthenticationProvider")
 @Slf4j
 public class GrantPasswordAuthenticationProvider implements AuthenticationProvider {
 
