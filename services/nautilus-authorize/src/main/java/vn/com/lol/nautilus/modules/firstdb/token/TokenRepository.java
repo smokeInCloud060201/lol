@@ -19,7 +19,7 @@ public interface TokenRepository extends BaseRepository<Token, Long> {
     Optional<Token> findByToken(String token, String refreshToken, String clientId, TokenType tokenType);
 
     @Query("SELECT t FROM Token t " +
-            " WHERE t.refreshToken = ?1 OR t.accessToken = ?1" +
+            " WHERE (t.refreshToken = ?1 OR t.accessToken = ?1) " +
             "   AND t.tokenType = ?2")
     Optional<Token> findByToken(String token, TokenType tokenType);
 

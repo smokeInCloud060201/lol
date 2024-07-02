@@ -7,4 +7,8 @@ public class Oauth2GrantType {
         new AuthorizationGrantType("grant_password");
 
     public static final AuthorizationGrantType REFRESH_TOKEN = AuthorizationGrantType.REFRESH_TOKEN;
+    public static final AuthorizationGrantType AUTHORIZATION_CODE = AuthorizationGrantType.AUTHORIZATION_CODE;
+    public static final AuthorizationGrantType CLIENT_CREDENTIALS = AuthorizationGrantType.CLIENT_CREDENTIALS;
+    public static final AuthorizationGrantType DEVICE_CODE = AuthorizationGrantType.DEVICE_CODE;
+    public static final AuthorizationGrantType JWT_BEARER = AuthorizationGrantType.JWT_BEARER;
 }

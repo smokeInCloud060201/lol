@@ -120,6 +120,7 @@ public class Oauth2TokenService implements OAuth2AuthorizationService {
                 module.addDeserializer(AuthorizationGrantType.class, new AuthorizationGrantTypeDeserializer());
                 JsonUtil.setMapper(module);
                 oAuth2Authorization = JsonUtil.getObjectFromJsonString(OAuth2Authorization.class, token.getOauth2Authorization());
+
                 oAuth2Authorization = mapTokensIntoOauthAuthorization(oAuth2Authorization, token.getOauth2Authorization());
             }
         } catch (Exception e) {

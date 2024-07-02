@@ -8,7 +8,6 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static vn.com.lol.common.constants.GlobalHibernateConstant.IS_NOT_DELETED;
-import static vn.com.lol.nautilus.commons.constant.HibernateConstant.Table.SOFT_DELETE_USER;
 import static vn.com.lol.nautilus.commons.constant.SecurityConstant.GrantAuthority.ROLE;
 import static vn.com.lol.nautilus.commons.constant.SecurityConstant.GrantAuthority.SCOPE;
 
@@ -32,7 +30,6 @@ import static vn.com.lol.nautilus.commons.constant.SecurityConstant.GrantAuthori
 @Entity(name = HibernateConstant.Entity.USER)
 @Table(name = HibernateConstant.Table.USER)
 @SQLRestriction(IS_NOT_DELETED)
-@SQLDelete(sql = SOFT_DELETE_USER)
 public class User extends BaseEntity implements UserDetails, Serializable {
 
     @Column(name = "email")
@@ -59,7 +56,7 @@ public class User extends BaseEntity implements UserDetails, Serializable {
     @Column(name = "is_enabled")
     private boolean isEnabled;
 
-    @ManyToMany(mappedBy = "userRoles", fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roleUsers;
 
     transient List<SimpleGrantedAuthority> authorities = new ArrayList<>();

@@ -33,6 +33,7 @@ public class JsonUtil {
         }
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addSerializer(Object.class, new SafeSerializer());
+
         mapper = Jackson2ObjectMapperBuilder.json()
                 .serializationInclusion(NON_NULL)
                 .failOnEmptyBeans(false)
@@ -79,11 +80,26 @@ public class JsonUtil {
      * @param clazz class to convert
      * @param json  the json
      * @return the object from json string
-     * @throws JsonProcessingException the json processing exception
+     *
      */
-    public static <T> T getObjectFromJsonString(Class<T> clazz, String json) throws JsonProcessingException {
+    public static <T> T getObjectFromJsonString(Class<T> clazz, String json) {
         initialize();
-        return mapper.readValue(json, clazz);
+        try {
+            return mapper.readValue(json, clazz);
+        } catch (JsonProcessingException e) {
+            log.error("EXCEPTION WHEN PARSE STRING TO OBJECT {}", e.getMessage());
+        }
+        return null;
+    }
+
+    public static <T> T getObjectFromJsonString(Class<T> clazz, String json, T defaultValue) {
+        initialize();
+        try {
+            return mapper.readValue(json, clazz);
+        } catch (JsonProcessingException e) {
+            log.error("EXCEPTION WHEN PARSE STRING TO OBJECT {}", e.getMessage());
+        }
+        return defaultValue;
     }
 
     public static <T> T getObjectFromJsonString(TypeReference<T> clazz, String json) {

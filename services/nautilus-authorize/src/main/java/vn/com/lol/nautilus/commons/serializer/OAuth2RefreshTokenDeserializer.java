@@ -18,7 +18,6 @@ public class OAuth2RefreshTokenDeserializer extends JsonDeserializer<OAuth2Refre
         String tokenValue = tokenNode.get("tokenValue").asText();
         Instant issuedAt = Instant.ofEpochSecond(tokenNode.get("issuedAt").longValue());
         Instant expiresAt = Instant.ofEpochSecond(tokenNode.get("expiresAt").longValue());
-        OAuth2RefreshToken refreshToken = new OAuth2RefreshToken(tokenValue, issuedAt, expiresAt);
-        return refreshToken;
+        return new OAuth2RefreshToken(tokenValue, issuedAt, expiresAt);
     }
 }
