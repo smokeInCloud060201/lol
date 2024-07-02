@@ -1,6 +1,5 @@
 package vn.com.lol.nautilus.commons.serializer;
 
-import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -12,7 +11,7 @@ import java.time.Instant;
 
 public class OAuth2RefreshTokenDeserializer extends JsonDeserializer<OAuth2RefreshToken> {
     @Override
-    public OAuth2RefreshToken deserialize(JsonParser p, DeserializationContext deserializationContext) throws IOException, JacksonException {
+    public OAuth2RefreshToken deserialize(JsonParser p, DeserializationContext deserializationContext) throws IOException {
         JsonNode node = p.getCodec().readTree(p);
         JsonNode tokenNode = node.get("token");
         String tokenValue = tokenNode.get("tokenValue").asText();

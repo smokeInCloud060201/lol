@@ -1,20 +1,24 @@
-package vn.com.lol.nautilus.commons.security.oauth2.grantPassword;
+package vn.com.lol.nautilus.commons.security.oauth2.grant_password;
 
 
+import lombok.Getter;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AuthorizationGrantAuthenticationToken;
 import org.springframework.util.Assert;
 import vn.com.lol.nautilus.commons.security.oauth2.Oauth2GrantType;
 
+import java.io.Serial;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 
+@Getter
 public class GrantPasswordAuthenticationToken extends OAuth2AuthorizationGrantAuthenticationToken {
 
+    @Serial
     private static final long serialVersionUID = 1L;
     private final String username;
     private final String password;
@@ -36,15 +40,13 @@ public class GrantPasswordAuthenticationToken extends OAuth2AuthorizationGrantAu
             scopes != null ? new HashSet<>(scopes) : Collections.emptySet());
     }
 
-    public String getUsername() {
-        return this.username;
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 
-    public String getPassword() {
-        return this.password;
-    }
-
-    public Set<String> getScopes() {
-        return this.scopes;
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

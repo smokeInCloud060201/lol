@@ -10,9 +10,11 @@ import org.springframework.security.oauth2.server.authorization.OAuth2Authorizat
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.authentication.OAuth2ClientAuthenticationToken;
+import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.stereotype.Service;
 import vn.com.lol.common.utils.JsonUtil;
 import vn.com.lol.nautilus.commons.serializer.AuthorizationGrantTypeDeserializer;
+import vn.com.lol.nautilus.commons.serializer.TokenSettingsSerializer;
 import vn.com.lol.nautilus.modules.firstdb.token.TokenRepository;
 import vn.com.lol.nautilus.modules.firstdb.token.entities.Token;
 import vn.com.lol.nautilus.modules.firstdb.token.enums.TokenType;
@@ -40,6 +42,9 @@ public class Oauth2TokenService implements OAuth2AuthorizationService {
                 .map(OAuth2Authorization.Token::getToken)
                 .map(AbstractOAuth2Token::getTokenValue)
                 .orElse(""));
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(TokenSettings.class, new TokenSettingsSerializer());
+        JsonUtil.setMapper(module);
         String oauth2Authorization = JsonUtil.stringify(authorization);
         token.setOauth2Authorization(oauth2Authorization);
         token.setClientId(authorization.getRegisteredClientId());

@@ -28,8 +28,8 @@ public class UserMapper {
 
     private List<String> buildScopes(User user) {
         List<String> scopes = new ArrayList<>();
-        user.getRoleUsers().forEach(role -> {
-            role.getPermissionRoles()
+        user.getUserRoles().forEach(role -> {
+            role.getRolePermission()
                     .forEach(permission -> scopes.add(SCOPE + permission.getName()));
             scopes.add(ROLE + role.getName());
         });

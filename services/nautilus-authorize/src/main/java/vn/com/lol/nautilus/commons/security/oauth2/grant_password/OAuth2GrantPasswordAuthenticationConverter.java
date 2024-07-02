@@ -1,4 +1,4 @@
-package vn.com.lol.nautilus.commons.security.oauth2.grantPassword;
+package vn.com.lol.nautilus.commons.security.oauth2.grant_password;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.lang.Nullable;

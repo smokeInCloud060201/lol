@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS users
     CONSTRAINT pk_users PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS role_users
+CREATE TABLE IF NOT EXISTS user_role
 (
     user_id BIGINT NOT NULL,
     role_id BIGINT NOT NULL

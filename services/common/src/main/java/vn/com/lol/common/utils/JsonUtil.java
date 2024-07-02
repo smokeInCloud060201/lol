@@ -23,6 +23,8 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @Slf4j
 public class JsonUtil {
+    private static final String ERROR_MESSAGE = "EXCEPTION WHEN PARSE OBJECT TO STRING {}";
+
     private static ObjectMapper mapper;
 
     private JsonUtil() {}
@@ -59,7 +61,7 @@ public class JsonUtil {
         try {
             return mapper.writeValueAsString(data);
         } catch (JsonProcessingException e) {
-            log.error("EXCEPTION WHEN PARSE OBJECT TO STRING {}", e.getMessage());
+            log.error(ERROR_MESSAGE, e.getMessage());
         }
         return null;
     }
@@ -69,7 +71,7 @@ public class JsonUtil {
         try {
             mapper.writeValue(output, data);
         } catch (IOException e) {
-            log.error("EXCEPTION WHEN PARSE OBJECT TO STRING {}", e.getMessage());
+            log.error(ERROR_MESSAGE, e.getMessage());
         }
     }
 
@@ -87,7 +89,7 @@ public class JsonUtil {
         try {
             return mapper.readValue(json, clazz);
         } catch (JsonProcessingException e) {
-            log.error("EXCEPTION WHEN PARSE STRING TO OBJECT {}", e.getMessage());
+            log.error(ERROR_MESSAGE, e.getMessage());
         }
         return null;
     }
@@ -97,7 +99,7 @@ public class JsonUtil {
         try {
             return mapper.readValue(json, clazz);
         } catch (JsonProcessingException e) {
-            log.error("EXCEPTION WHEN PARSE STRING TO OBJECT {}", e.getMessage());
+            log.error(ERROR_MESSAGE, e.getMessage());
         }
         return defaultValue;
     }
@@ -107,7 +109,7 @@ public class JsonUtil {
         try {
             return mapper.readValue(json, clazz);
         } catch (JsonProcessingException e) {
-            log.error("EXCEPTION WHEN PARSE STRING TO OBJECT {}", e.getMessage());
+            log.error(ERROR_MESSAGE, e.getMessage());
         }
         return null;
     }

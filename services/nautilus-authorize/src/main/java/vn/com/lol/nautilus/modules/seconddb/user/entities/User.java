@@ -1,8 +1,11 @@
 package vn.com.lol.nautilus.modules.seconddb.user.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -57,7 +60,12 @@ public class User extends BaseEntity implements UserDetails, Serializable {
     private boolean isEnabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Role> roleUsers;
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JsonManagedReference
+    private List<Role> userRoles;
 
     transient List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
@@ -65,11 +73,11 @@ public class User extends BaseEntity implements UserDetails, Serializable {
     @Override
     public List<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> simpleGrantedAuthorityList = new ArrayList<>();
-        if (roleUsers == null) {
+        if (userRoles == null) {
             return simpleGrantedAuthorityList;
         }
-        roleUsers.forEach(role -> {
-            role.getPermissionRoles()
+        userRoles.forEach(role -> {
+            role.getRolePermission()
                     .forEach(permission -> simpleGrantedAuthorityList.add(new SimpleGrantedAuthority(SCOPE + permission.getName())));
             simpleGrantedAuthorityList.add(new SimpleGrantedAuthority(ROLE + role.getName()));
         });

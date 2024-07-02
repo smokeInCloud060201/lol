@@ -1,4 +1,4 @@
-package vn.com.lol.nautilus.commons.security.oauth2.grantPassword;
+package vn.com.lol.nautilus.commons.security.oauth2.grant_password;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -140,11 +140,11 @@ public class GrantPasswordAuthenticationProvider implements AuthenticationProvid
             .authorizationGrantType(GRANT_PASSWORD)
             .authorizedScopes(registeredClient.getScopes());
 
-        if (generatedAccessToken instanceof ClaimAccessor) {
+        if (generatedAccessToken instanceof ClaimAccessor claimToken) {
             authorizationBuilder.token(accessToken, (metadata) ->
                 metadata.put(
                     OAuth2Authorization.Token.CLAIMS_METADATA_NAME,
-                    ((ClaimAccessor) generatedAccessToken).getClaims()
+                    claimToken.getClaims()
                 )
             );
         } else {

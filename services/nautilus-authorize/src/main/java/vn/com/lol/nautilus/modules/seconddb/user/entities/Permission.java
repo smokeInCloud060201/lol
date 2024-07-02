@@ -1,5 +1,6 @@
 package vn.com.lol.nautilus.modules.seconddb.user.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,6 +15,7 @@ import org.hibernate.annotations.SQLRestriction;
 import vn.com.lol.common.entities.BaseEntity;
 import vn.com.lol.nautilus.commons.constant.HibernateConstant;
 
+import java.io.Serializable;
 import java.util.List;
 
 import static vn.com.lol.common.constants.GlobalHibernateConstant.IS_NOT_DELETED;
@@ -25,7 +27,11 @@ import static vn.com.lol.common.constants.GlobalHibernateConstant.IS_NOT_DELETED
 @Entity(name = HibernateConstant.Entity.PERMISSION)
 @Table(name = HibernateConstant.Table.PERMISSION)
 @SQLRestriction(IS_NOT_DELETED)
-public class Permission extends BaseEntity {
+public class Permission extends BaseEntity implements Serializable {
     @Column(name = "name")
     private String name;
+
+    @ManyToMany(mappedBy = "rolePermission")
+    @JsonBackReference
+    private List<Role> permissionRoles;
 }

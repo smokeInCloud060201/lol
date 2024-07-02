@@ -14,8 +14,8 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfigurationSource;
 import vn.com.lol.nautilus.commons.security.CustomAuthenticationEntryPoint;
-import vn.com.lol.nautilus.commons.security.oauth2.grantPassword.GrantPasswordAuthenticationProvider;
-import vn.com.lol.nautilus.commons.security.oauth2.grantPassword.OAuth2GrantPasswordAuthenticationConverter;
+import vn.com.lol.nautilus.commons.security.oauth2.grant_password.GrantPasswordAuthenticationProvider;
+import vn.com.lol.nautilus.commons.security.oauth2.grant_password.OAuth2GrantPasswordAuthenticationConverter;
 import vn.com.lol.nautilus.commons.security.oauth2.refresh_token.RefreshTokenAuthenticationConverter;
 import vn.com.lol.nautilus.commons.security.oauth2.refresh_token.RefreshTokenAuthenticationProvider;
 

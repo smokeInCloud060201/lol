@@ -39,14 +39,8 @@ public class Role extends BaseEntity {
             name = "role_permission",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id"))
-    @JsonManagedReference
-    private List<Permission> permissionRoles;
+    private List<Permission> rolePermission;
 
-    @ManyToMany
-    @JoinTable(
-            name = "role_users",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    @JsonBackReference
-    private List<User> userRoles;
+    @ManyToMany(mappedBy = "userRoles")
+    private List<User> roleUser;
 }

@@ -30,7 +30,7 @@ public class Permission extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "permissionRoles")
-    @JsonBackReference
-    private List<Role> rolePermissions;
+
+    @ManyToMany(mappedBy = "rolePermission")
+    private List<Role> permissionRoles;
 }

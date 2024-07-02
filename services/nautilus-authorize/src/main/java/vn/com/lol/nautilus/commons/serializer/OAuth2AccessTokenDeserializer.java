@@ -24,7 +24,6 @@ public class OAuth2AccessTokenDeserializer extends JsonDeserializer<OAuth2Access
 
         Set<String> scopes = Collections.emptySet(); // Modify this to parse scopes if present in your JSON
 
-        OAuth2AccessToken accessToken = new OAuth2AccessToken(tokenType, tokenValue, issuedAt, expiresAt, scopes);
-        return accessToken;
+        return new OAuth2AccessToken(tokenType, tokenValue, issuedAt, expiresAt, scopes);
     }
 }
