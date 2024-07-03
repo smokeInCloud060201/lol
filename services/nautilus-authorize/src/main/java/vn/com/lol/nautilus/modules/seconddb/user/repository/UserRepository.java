@@ -9,7 +9,6 @@ import vn.com.lol.common.repository.ReadOnlyBaseRepository;
 import java.util.Optional;
 
 @Repository
-@Transactional(readOnly = true)
 public interface UserRepository extends ReadOnlyBaseRepository<User, Long> {
     @Query("SELECT u FROM User u WHERE UPPER(u.email) = UPPER(?1)")
     Optional<User> findByUserName(String userName);
