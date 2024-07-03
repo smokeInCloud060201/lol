@@ -14,7 +14,7 @@ import java.util.Set;
 public class OAuth2AccessTokenDeserializer extends JsonDeserializer<OAuth2AccessToken> {
 
     @Override
-    public OAuth2AccessToken deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+    public OAuth2AccessToken deserialize(JsonParser p, DeserializationContext text) throws IOException {
         JsonNode node = p.getCodec().readTree(p);
         JsonNode tokenNode = node.get("token");
         String tokenValue = tokenNode.get("tokenValue").asText();

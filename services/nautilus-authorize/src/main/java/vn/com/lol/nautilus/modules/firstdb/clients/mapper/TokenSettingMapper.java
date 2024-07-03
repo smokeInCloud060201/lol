@@ -8,9 +8,9 @@ import vn.com.lol.nautilus.modules.firstdb.clients.dto.TokenSettingsDTO;
 public class TokenSettingMapper {
 
     public TokenSettingsDTO mapEntityToDTO(TokenSettings tokenSettings) {
-        tokenSettings.getSte
+//        tokenSettings.getSte
         return TokenSettingsDTO.builder()
-                .
+//                .
                 .build();
     }
 }

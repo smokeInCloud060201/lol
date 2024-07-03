@@ -84,14 +84,10 @@ public class Client extends BaseEntity {
 
     public TokenSettings getTokenSetting() {
         if (tokenSetting == null && !tokenSettings.isEmpty()) {
-//            SimpleModule module = new SimpleModule();
-//            module.addDeserializer(TokenSettings.class, new TokenSettingsDeserializer());
-//            JsonUtil.setMapper(module);
             tokenSetting = JsonUtil.getObjectFromJsonString(TokenSettings.class, this.tokenSettings, TokenSettings.builder().build());
         }
         return tokenSetting;
     }
-
 
     public List<AuthorizationGrantType> getAuthorizationGrantTypeList() {
         if (!this.authrorizationGrantType.isEmpty()) {
@@ -102,12 +98,10 @@ public class Client extends BaseEntity {
         return authorizationGrantTypeList;
     }
 
-
     public List<String> getClientScopeList() {
         if (!this.clientScope.isEmpty()) {
             clientScopeList = Arrays.stream(clientScope.split(",")).toList();
         }
         return clientScopeList;
     }
-
 }
