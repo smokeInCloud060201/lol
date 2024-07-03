@@ -1,4 +1,4 @@
-package vn.com.lol.common.constants;
+package vn.com.lol.common.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

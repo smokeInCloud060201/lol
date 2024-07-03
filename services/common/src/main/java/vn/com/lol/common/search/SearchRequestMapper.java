@@ -8,7 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import vn.com.lol.common.annotations.SearchAllForKey;
 import vn.com.lol.common.constants.PagingConstant;
-import vn.com.lol.common.constants.SortCriteria;
+import vn.com.lol.common.dto.request.SortCriteria;
 import vn.com.lol.common.dto.request.FilterCriteria;
 import vn.com.lol.common.dto.request.SearchDTO;
 import vn.com.lol.common.entities.BaseEntity;

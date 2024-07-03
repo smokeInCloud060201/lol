@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Singular;
 import vn.com.lol.common.constants.PagingConstant;
-import vn.com.lol.common.constants.SortCriteria;
 
 import java.util.ArrayList;
 import java.util.List;

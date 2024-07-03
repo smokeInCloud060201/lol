@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import vn.com.lol.common.dto.request.SearchDTO;
 import vn.com.lol.common.dto.response.BaseResponse;
 import vn.com.lol.common.mapper.BaseResponseMapper;
+import vn.com.lol.common.mapper.SearchMapper;
 import vn.com.lol.nautilus.modules.firstdb.clients.dto.request.UpdateClientRequest;
 import vn.com.lol.nautilus.modules.firstdb.clients.dto.response.ClientResponse;
 import vn.com.lol.nautilus.modules.firstdb.clients.services.ClientService;
+
+import java.util.List;
 
 import static vn.com.lol.common.constants.ControllerPathConstant.API_V1_PREFIX_BASE_PATH;
 import static vn.com.lol.nautilus.commons.constant.ControllerPathConstant.CLIENTS_BASE;
@@ -29,8 +33,13 @@ public class ClientController {
     private final ClientService clientService;
 
     @GetMapping
-    public BaseResponse<Page<ClientResponse>> searchClient() {
-        return BaseResponseMapper.of(clientService.getAllClient());
+    public BaseResponse<Page<ClientResponse>> searchClient(@RequestParam(name = "page", defaultValue = "0") int pageIndex,
+                                                           @RequestParam(value = "size", defaultValue = "10") int pageSize,
+                                                           @RequestParam("search_key") String searchKey,
+                                                           @RequestParam("sorts") String sorts,
+                                                           @RequestParam("filters") String filters) {
+        SearchDTO searchDTO =  SearchMapper.mappingFromRequestParamsToSearchDTO(pageIndex, pageSize, searchKey, sorts, filters);
+        return BaseResponseMapper.of(clientService.getAllClient(searchDTO));
     }
 
     @GetMapping("/{id}")
