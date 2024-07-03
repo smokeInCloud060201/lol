@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import vn.com.lol.common.dto.request.SearchDTO;
 import vn.com.lol.common.dto.response.BaseResponse;
+import vn.com.lol.common.exceptions.ResourceNotFoundException;
 import vn.com.lol.common.mapper.BaseResponseMapper;
 import vn.com.lol.common.mapper.SearchMapper;
 import vn.com.lol.nautilus.modules.firstdb.clients.dto.request.UpdateClientRequest;
@@ -43,7 +44,7 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    public BaseResponse<ClientResponse> searchClientById(@PathVariable("id") String id) {
+    public BaseResponse<ClientResponse> searchClientById(@PathVariable("id") String id) throws ResourceNotFoundException {
         Long clientID = Long.valueOf(id);
         return BaseResponseMapper.of(clientService.getClientById(clientID));
     }
