@@ -45,6 +45,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void removeClient(Long clientId) {
-
+        log.info("Start remove client {}", clientId);
+        clientRepository.findById(clientId).ifPresent(clientRepository::delete);
     }
 }

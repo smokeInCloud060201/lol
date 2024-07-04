@@ -2,6 +2,7 @@ package vn.com.lol.common.mapper;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import vn.com.lol.common.dto.request.FilterCriteria;
 import vn.com.lol.common.dto.request.SearchDTO;
 import vn.com.lol.common.dto.request.SortCriteria;
@@ -27,6 +28,9 @@ public class SearchMapper {
     }
 
     private static List<SortCriteria> mapStringToSortCriteriaList(String sorts) {
+        if (StringUtils.isEmpty(sorts)) {
+            return new ArrayList<>();
+        }
         String[] sortCriteriaArr = sorts.split(";");
         List<SortCriteria> sortCriteriaList = new ArrayList<>();
 
@@ -44,6 +48,9 @@ public class SearchMapper {
     }
 
     private static List<FilterCriteria> mapStringToFilterCriteriaList(String filters) {
+        if (StringUtils.isEmpty(filters)) {
+            return new ArrayList<>();
+        }
         String[] filtersArr = filters.split(";");
         int length = filtersArr.length;
         List<FilterCriteria> filterCriteriaList = new ArrayList<>();

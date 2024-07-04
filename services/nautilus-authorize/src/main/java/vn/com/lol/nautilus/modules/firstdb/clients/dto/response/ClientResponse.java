@@ -26,7 +26,7 @@ public class ClientResponse {
     private String clientAuthenticationMethod;
 
     @JsonProperty("token_setting")
-    private TokenSettingsDTO tokenSettings;
+    private String tokenSettings;
 
     @JsonProperty("authorization_grant_types")
     private List<String> authorizationGrantTypes;

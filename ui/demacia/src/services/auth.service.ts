@@ -11,20 +11,16 @@ export const authApi = createApi({
     prepareHeaders: (headers: Headers) => {
       headers.set("X-Requested-With", `XMLHttpRequest`);
       headers.set("Content-Type", "application/x-www-form-urlencoded");
-      headers.set("Authorization", "Basic " + btoa("demo-client:demo-secret"));
+      headers.set("Content-Type", "application/json");
       return headers;
     },
   }),
   endpoints: (builder) => ({
     login: builder.mutation<IBaseResponse<ILoginResponse>, ILoginRequest>({
-      query: (body: ILoginRequest) => ({
-        url: "/oauth2/token",
+      query: (request: ILoginRequest) => ({
+        url: "/api/v1/auth/login",
         method: "POST",
-        body: new URLSearchParams({
-          username: body.email,
-          password: body.password,
-          grant_type: "grant_password",
-        }),
+        body: request,
       }),
     }),
   }),

@@ -84,6 +84,9 @@ public class Client extends BaseEntity {
 
     public TokenSettings getTokenSetting() {
         if (tokenSetting == null && !tokenSettings.isEmpty()) {
+            SimpleModule module = new SimpleModule();
+            module.addDeserializer(TokenSettings.class, new TokenSettingsDeserializer());
+            JsonUtil.setMapper(module);
             tokenSetting = JsonUtil.getObjectFromJsonString(TokenSettings.class, this.tokenSettings, TokenSettings.builder().build());
         }
         return tokenSetting;

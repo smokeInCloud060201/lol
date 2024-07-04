@@ -9,7 +9,6 @@ import vn.com.lol.nautilus.modules.firstdb.clients.entities.Client;
 @Component
 @RequiredArgsConstructor
 public class ClientMapper {
-    private final TokenSettingMapper tokenSettingMapper;
     public ClientResponse mapEntityToDTO(Client client) {
         return ClientResponse.builder()
                 .registerClientId(client.getRegisterClientId())
@@ -19,7 +18,7 @@ public class ClientMapper {
                 .clientScope(client.getClientScopeList())
                 .redirectUrl(client.getRedirectUrl())
                 .authorizationGrantTypes(client.getAuthorizationGrantTypeList().stream().map(AuthorizationGrantType::getValue).toList())
-//                .tokenSettings()
+                .tokenSettings(client.getTokenSetting().toString())
                 .build();
     }
 }
