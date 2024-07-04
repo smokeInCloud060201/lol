@@ -4,6 +4,8 @@ import { Formik, Form, FormikProps, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { useLoginMutation } from "../../services/auth.service";
 import SignInFormImage from "../../access/images/SignInForm.jpg";
+import { useDispatch } from "react-redux";
+import { setToken } from "../../store/slices/auth.slice";
 
 interface ISignIn {
   email: string;
@@ -17,11 +19,13 @@ const initialValues = {
 
 const AuthenticationForm: React.FC = () => {
   const [login] = useLoginMutation();
+  const dispatch = useDispatch();
   const handleLogin = (values: ISignIn, action: FormikHelpers<ISignIn>) => {
     login(values)
       .unwrap()
       .then((res) => {
         console.log(res);
+        dispatch(setToken("res?.accessToken"));
         action.resetForm();
       })
       .catch((err) => console.log(err));
