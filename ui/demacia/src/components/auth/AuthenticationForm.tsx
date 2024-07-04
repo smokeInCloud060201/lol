@@ -6,6 +6,7 @@ import { useLoginMutation } from "../../services/auth.service";
 import SignInFormImage from "../../access/images/SignInForm.jpg";
 import { useDispatch } from "react-redux";
 import { setToken } from "../../store/slices/auth.slice";
+import { useNavigate } from "react-router-dom";
 
 interface ISignIn {
   email: string;
@@ -20,13 +21,15 @@ const initialValues = {
 const AuthenticationForm: React.FC = () => {
   const [login] = useLoginMutation();
   const dispatch = useDispatch();
+  const navigator = useNavigate();
   const handleLogin = (values: ISignIn, action: FormikHelpers<ISignIn>) => {
     login(values)
       .unwrap()
       .then((res) => {
-        console.log(res);
-        dispatch(setToken("res?.accessToken"));
+        const token = res?.data?.accessToken;
+        dispatch(setToken(token));
         action.resetForm();
+        navigator("/dashboard");
       })
       .catch((err) => console.log(err));
   };

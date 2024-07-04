@@ -1,19 +1,16 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectToken } from "../store/slices/auth.slice";
 
 const AuthLayout = () => {
   const token = useSelector(selectToken);
-  const isAuthenticated = useMemo(() => {
-    return token !== undefined && token !== "";
-  }, [token]);
 
   console.log("token", token);
 
-  if (isAuthenticated) {
+  if (token !== undefined && token !== "") {
     return <Outlet />;
   }
-  return <Navigate to={"/auth"} replace />;
+  return <Navigate to={"/auth"} />;
 };
 export default AuthLayout;
