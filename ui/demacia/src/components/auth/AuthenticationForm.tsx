@@ -2,11 +2,7 @@ import React from "react";
 import { Button, Box, TextField, Container } from "@mui/material";
 import { Formik, Form, FormikProps, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { useLoginMutation } from "../../services/auth.service";
 import SignInFormImage from "../../access/images/SignInForm.jpg";
-import { useDispatch } from "react-redux";
-import { setToken } from "../../store/slices/auth.slice";
-import { useNavigate } from "react-router-dom";
 
 interface ISignIn {
   email: string;
@@ -19,19 +15,8 @@ const initialValues = {
 };
 
 const AuthenticationForm: React.FC = () => {
-  const [login] = useLoginMutation();
-  const dispatch = useDispatch();
-  const navigator = useNavigate();
   const handleLogin = (values: ISignIn, action: FormikHelpers<ISignIn>) => {
-    login(values)
-      .unwrap()
-      .then((res) => {
-        const token = res?.data?.accessToken;
-        dispatch(setToken(token));
-        action.resetForm();
-        navigator("/dashboard");
-      })
-      .catch((err) => console.log(err));
+    console.log(values, action);
   };
 
   const signInSchema = Yup.object().shape({

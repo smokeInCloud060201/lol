@@ -3,12 +3,8 @@ import { Route, Routes } from "react-router-dom";
 import AuthLayout from "./AuthLayout";
 import HomePage from "../pages/home/HomePage";
 import Authentication from "../pages/auth/Authentication";
-import { useSelector } from "react-redux";
-import { selectToken } from "../store/slices/auth.slice";
 
 const AppRouter: React.FC = () => {
-  const token = useSelector(selectToken);
-  console.log(token);
   return (
     <Routes>
       <Route path={"/auth"} element={<Authentication />} />

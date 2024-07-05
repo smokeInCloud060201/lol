@@ -1,13 +1,10 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectToken } from "../store/slices/auth.slice";
+import { getParams } from "../utils/storage.util";
+import { PARAMETERS } from "../constant";
 
 const AuthLayout = () => {
-  const token = useSelector(selectToken);
-
-  console.log("token", token);
-
+  const token = getParams(PARAMETERS.DEMACIA_ACCESS_TOKEN);
   if (token !== undefined && token !== "") {
     return <Outlet />;
   }
