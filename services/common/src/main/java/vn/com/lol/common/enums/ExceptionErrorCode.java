@@ -25,4 +25,9 @@ public enum ExceptionErrorCode {
      * UN_AUTHORIZE: 401
      */
     E_004,
+
+    /**
+     * TOKEN_EXPIRED: 401
+     */
+    E_005,
 }

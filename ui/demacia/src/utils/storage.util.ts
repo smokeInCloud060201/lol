@@ -1,7 +1,7 @@
-export const storeParams = (key: string, value: any) => {
+export const setItems = (key: string, value: any) => {
   localStorage.setItem(key, value);
 };
 
-export const getParams = (key: string) => {
-  return JSON.parse(localStorage.getItem(key) ?? "");
+export const getItems = (key: string) => {
+  return localStorage.getItem(key);
 };

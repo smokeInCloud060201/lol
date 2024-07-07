@@ -3,6 +3,10 @@ import { Button, Box, TextField, Container } from "@mui/material";
 import { Formik, Form, FormikProps, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import SignInFormImage from "../../access/images/SignInForm.jpg";
+import { authService } from "../../services/auth.service";
+import { setItems } from "../../utils/storage.util";
+import { PARAMETERS } from "../../constant";
+import { useNavigate } from "react-router-dom";
 
 interface ISignIn {
   email: string;
@@ -15,8 +19,16 @@ const initialValues = {
 };
 
 const AuthenticationForm: React.FC = () => {
+  const navigator = useNavigate();
   const handleLogin = (values: ISignIn, action: FormikHelpers<ISignIn>) => {
-    console.log(values, action);
+    authService
+      .login(values)
+      .then((res) => {
+        setItems(PARAMETERS.DEMACIA_ACCESS_TOKEN, res?.data?.data?.accessToken);
+        navigator("/dashboard");
+        action.resetForm();
+      })
+      .catch((err) => console.log(err));
   };
 
   const signInSchema = Yup.object().shape({

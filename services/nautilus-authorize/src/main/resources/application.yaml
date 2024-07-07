@@ -72,8 +72,8 @@ logging:
 security:
   jwt:
     secret-key: "89f0d1b8d71f4b5ea4c6e7a53b7fecd8c4e78a9d51f8abef36d5e5b5d59c8f2b"
-    expiration: 3600000
+    expiration: 1
     refresh-token:
-      expiration: 86400000
+      expiration: 1
 
 

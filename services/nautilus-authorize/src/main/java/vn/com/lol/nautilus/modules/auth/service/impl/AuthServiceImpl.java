@@ -17,6 +17,8 @@ import vn.com.lol.nautilus.modules.firstdb.token.enums.TokenType;
 import vn.com.lol.nautilus.modules.seconddb.user.entities.User;
 import vn.com.lol.nautilus.modules.seconddb.user.repository.UserRepository;
 
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -37,16 +39,47 @@ public class AuthServiceImpl implements AuthService {
         String accessToken = jwtUtil.generateToken(user, servletRequest);
         String refreshToken = jwtUtil.generateRefreshToken(user, servletRequest);
 
+        saveToken(accessToken, refreshToken, user);
+
+        return AuthenticationResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
+    }
+
+    @Override
+    public AuthenticationResponse refreshToken(Map<String, String> refreshTokenRequest, HttpServletRequest servletRequest) throws ResourceNotFoundException {
+        String accessToken = refreshTokenRequest.get("access_token");
+        String refreshToken = refreshTokenRequest.get("refresh_token");
+
+        Token token = tokenRepository.findByToken(accessToken, refreshToken, TokenType.BASIC)
+                .orElseThrow(() -> new ResourceNotFoundException("Token was not exists"));
+
+        User user = userRepository.findByUserName(token.getUsername()).orElseThrow(() -> new ResourceNotFoundException("Not found user"));
+
+        if (jwtUtil.isTokenValid(refreshToken, user)) {
+            String newAccessToken = jwtUtil.generateToken(user, servletRequest);
+            String newRefreshToken = jwtUtil.generateRefreshToken(user, servletRequest);
+
+            token.setRefreshed(true);
+            tokenRepository.save(token);
+            saveToken(newAccessToken, newRefreshToken, user);
+
+            return AuthenticationResponse.builder()
+                    .accessToken(newAccessToken)
+                    .refreshToken(newRefreshToken)
+                    .build();
+        } else {
+            throw new ResourceNotFoundException("Refresh token is invalid");
+        }
+    }
+
+    private void saveToken(String accessToken, String refreshToken, User user) {
         Token token = new Token();
         token.setAccessToken(accessToken);
         token.setRefreshToken(refreshToken);
         token.setUsername(user.getUsername());
         token.setTokenType(TokenType.BASIC);
         tokenRepository.save(token);
-
-        return AuthenticationResponse.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
     }
 }
