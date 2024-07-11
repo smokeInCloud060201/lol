@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import vn.com.lol.common.enums.ExceptionErrorCode;
 
+import java.util.Map;
+
 @Builder
 @Getter
 public class BaseResponse <T> {
@@ -18,4 +20,7 @@ public class BaseResponse <T> {
 
     @JsonProperty("error_code")
     private ExceptionErrorCode errorCode;
+
+    @JsonProperty("meta_data")
+    private Map<String, Object> metaData;
 }

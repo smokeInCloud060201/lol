@@ -15,6 +15,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import vn.com.lol.common.entities.BaseEntity;
 import vn.com.lol.yorick.common.constant.HibernateConstant;
+import vn.com.lol.yorick.modules.user.enums.UserRank;
 
 import java.util.List;
 
@@ -38,6 +39,8 @@ public class User extends BaseEntity {
 
     @Column(name = "mobile_no")
     private String mobileNo;
+
+    private UserRank userRank;
 
     @Column(name = "is_verified_email")
     private boolean isVerifiedEmail;
