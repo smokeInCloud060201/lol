@@ -3,6 +3,7 @@ package vn.com.lol.lulu.modules.email.services.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import vn.com.lol.common.dto.request.SearchDTO;
 import vn.com.lol.lulu.modules.email.dtos.request.UpsertEmailTemplateRequest;
 import vn.com.lol.lulu.modules.email.dtos.response.EmailTemplateResponse;
 import vn.com.lol.lulu.modules.email.mapper.EmailTemplateMapper;
@@ -25,7 +26,7 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
     }
 
     @Override
-    public Page<EmailTemplateResponse> getAll() {
+    public Page<EmailTemplateResponse> getAll(SearchDTO searchDTO) {
         return null;
     }
 
