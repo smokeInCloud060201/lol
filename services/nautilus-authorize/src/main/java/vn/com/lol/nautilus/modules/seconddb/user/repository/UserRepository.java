@@ -2,9 +2,8 @@ package vn.com.lol.nautilus.modules.seconddb.user.repository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-import vn.com.lol.nautilus.modules.seconddb.user.entities.User;
 import vn.com.lol.common.repository.ReadOnlyBaseRepository;
+import vn.com.lol.nautilus.modules.seconddb.user.entities.User;
 
 import java.util.Optional;
 

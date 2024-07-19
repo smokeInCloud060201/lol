@@ -3,7 +3,6 @@ package vn.com.lol.nautilus.modules.firstdb.clients.dto.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
-import vn.com.lol.nautilus.modules.firstdb.clients.dto.TokenSettingsDTO;
 
 import java.util.List;
 

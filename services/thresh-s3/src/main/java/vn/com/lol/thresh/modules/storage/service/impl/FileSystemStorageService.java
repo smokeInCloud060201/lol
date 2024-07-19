@@ -1,5 +1,6 @@
 package vn.com.lol.thresh.modules.storage.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -20,10 +21,11 @@ import java.util.Objects;
 import static vn.com.lol.thresh.commons.constant.StorageConstant.STORAGE_ROOT_PATH;
 
 @Service
+@RequiredArgsConstructor
 public class FileSystemStorageService implements StorageService {
 
-    @Autowired
-    private FileMetaRepository fileMetadataRepository;
+
+    private final FileMetaRepository fileMetadataRepository;
 
     @Override
     public String store(MultipartFile file) throws IOException {
